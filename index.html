@@ -1,221 +1,242 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rifa+</title>
 
-  <title>Rifa+</title>
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
 
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
-    }
+body {
+  background: #f4f6f8;
+  color: #111827;
+}
 
-    body {
-      background: #f4f6f8;
-      color: #111827;
-    }
+header {
+  background: #111827;
+  color: white;
+  padding: 18px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
-    header {
-      background: #111827;
-      color: white;
-      padding: 18px 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
+.logo {
+  font-size: 25px;
+  font-weight: 800;
+}
 
-    .logo {
-      font-size: 25px;
-      font-weight: 800;
-    }
+.logo span {
+  color: #22c55e;
+}
 
-    .logo span {
-      color: #22c55e;
-    }
+.container {
+  max-width: 1000px;
+  margin: auto;
+  padding: 20px;
+}
 
-    .container {
-      max-width: 900px;
-      margin: auto;
-      padding: 20px;
-    }
+.card {
+  background: white;
+  border-radius: 20px;
+  padding: 25px;
+  margin-top: 20px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+}
 
-    .hero {
-      background: white;
-      border-radius: 20px;
-      overflow: hidden;
-      margin-top: 20px;
-      box-shadow: 0 8px 25px rgba(0,0,0,0.08);
-    }
+h1 {
+  font-size: 28px;
+  margin-bottom: 8px;
+}
 
-    .prize {
-      height: 240px;
-      background: linear-gradient(135deg, #111827, #1f2937);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      color: white;
-      text-align: center;
-      padding: 20px;
-    }
+.subtitle {
+  color: #6b7280;
+  margin-bottom: 20px;
+}
 
-    .prize h1 {
-      font-size: 36px;
-    }
+.info {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 25px;
+}
 
-    .content {
-      padding: 25px;
-    }
+.info-box {
+  background: #f9fafb;
+  border-radius: 12px;
+  padding: 14px 18px;
+  flex: 1;
+  min-width: 140px;
+}
 
-    .tag {
-      display: inline-block;
-      background: #dcfce7;
-      color: #15803d;
-      padding: 7px 12px;
-      border-radius: 20px;
-      font-size: 13px;
-      font-weight: bold;
-      margin-bottom: 12px;
-    }
+.info-box small {
+  display: block;
+  color: #6b7280;
+  margin-bottom: 5px;
+}
 
-    h2 {
-      font-size: 26px;
-      margin-bottom: 10px;
-    }
+.info-box strong {
+  font-size: 18px;
+}
 
-    .description {
-      color: #6b7280;
-      line-height: 1.5;
-      margin-bottom: 20px;
-    }
+.search {
+  width: 100%;
+  padding: 15px;
+  border: 2px solid #e5e7eb;
+  border-radius: 12px;
+  font-size: 16px;
+  outline: none;
+  margin-bottom: 15px;
+}
 
-    .info {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-      margin-bottom: 20px;
-    }
+.search:focus {
+  border-color: #22c55e;
+}
 
-    .info-box {
-      background: #f9fafb;
-      border-radius: 12px;
-      padding: 15px;
-      text-align: center;
-    }
+.legend {
+  display: flex;
+  gap: 18px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+  font-size: 14px;
+}
 
-    .info-box small {
-      color: #6b7280;
-      display: block;
-      margin-bottom: 5px;
-    }
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
 
-    .info-box strong {
-      font-size: 18px;
-    }
+.dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+}
 
-    .progress {
-      margin: 20px 0;
-    }
+.available {
+  background: #22c55e;
+  color: white;
+}
 
-    .progress-top {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 8px;
-      font-size: 14px;
-    }
+.reserved {
+  background: #facc15;
+  color: #111827;
+}
 
-    .bar {
-      height: 10px;
-      background: #e5e7eb;
-      border-radius: 10px;
-      overflow: hidden;
-    }
+.sold {
+  background: #ef4444;
+  color: white;
+}
 
-    .bar-fill {
-      width: 42%;
-      height: 100%;
-      background: #22c55e;
-      border-radius: 10px;
-    }
+.numbers {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 9px;
+}
 
-    .button {
-      width: 100%;
-      border: none;
-      background: #22c55e;
-      color: white;
-      padding: 17px;
-      border-radius: 12px;
-      font-size: 17px;
-      font-weight: bold;
-      cursor: pointer;
-    }
+.number {
+  border: none;
+  border-radius: 10px;
+  padding: 14px 5px;
+  font-weight: bold;
+  font-size: 15px;
+  cursor: pointer;
+  transition: 0.15s;
+}
 
-    .button:hover {
-      background: #16a34a;
-    }
+.number.available:hover {
+  transform: scale(1.05);
+  background: #16a34a;
+}
 
-    .how {
-      margin-top: 25px;
-      background: white;
-      border-radius: 20px;
-      padding: 25px;
-      box-shadow: 0 8px 25px rgba(0,0,0,0.06);
-    }
+.number.selected {
+  background: #111827;
+  color: white;
+  outline: 3px solid #22c55e;
+}
 
-    .steps {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 15px;
-      margin-top: 20px;
-    }
+.number.reserved,
+.number.sold {
+  cursor: not-allowed;
+  opacity: 0.75;
+}
 
-    .step {
-      background: #f9fafb;
-      padding: 18px;
-      border-radius: 14px;
-    }
+.bottom {
+  margin-top: 25px;
+  background: #111827;
+  color: white;
+  padding: 20px;
+  border-radius: 15px;
+}
 
-    .number {
-      width: 35px;
-      height: 35px;
-      background: #111827;
-      color: white;
-      border-radius: 50%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-weight: bold;
-      margin-bottom: 10px;
-    }
+.bottom-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
 
-    .step p {
-      color: #6b7280;
-      margin-top: 5px;
-      line-height: 1.4;
-      font-size: 14px;
-    }
+.total strong {
+  font-size: 25px;
+}
 
-    footer {
-      text-align: center;
-      padding: 30px 10px;
-      color: #6b7280;
-      font-size: 13px;
-    }
+.continue {
+  border: none;
+  background: #22c55e;
+  color: white;
+  padding: 15px 25px;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
 
-    @media (max-width: 650px) {
-      .info,
-      .steps {
-        grid-template-columns: 1fr;
-      }
+.continue:hover {
+  background: #16a34a;
+}
 
-      .prize h1 {
-        font-size: 28px;
-      }
-    }
-  </style>
+.continue:disabled {
+  background: #6b7280;
+  cursor: not-allowed;
+}
+
+.message {
+  margin-top: 15px;
+  color: #fca5a5;
+  font-size: 14px;
+}
+
+@media (max-width: 600px) {
+  .container {
+    padding: 12px;
+  }
+
+  .card {
+    padding: 18px;
+  }
+
+  .numbers {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 7px;
+  }
+
+  .number {
+    padding: 13px 3px;
+    font-size: 13px;
+  }
+
+  h1 {
+    font-size: 24px;
+  }
+}
+</style>
 </head>
 
 <body>
@@ -227,104 +248,222 @@
 
 <div class="container">
 
-  <section class="hero">
+  <div class="card">
 
-    <div class="prize">
-      <div>
-        <div style="font-size:60px;">🏆</div>
-        <h1>Gran Rifa</h1>
-      </div>
-    </div>
+    <h1>🎟️ Elige tus números</h1>
 
-    <div class="content">
+    <p class="subtitle">
+      Selecciona uno o varios números para participar en la rifa.
+    </p>
 
-      <span class="tag">RIFA ACTIVA</span>
+    <div class="info">
 
-      <h2>Gana un premio increíble</h2>
-
-      <p class="description">
-        Elige tu número, registra tus datos y participa.
-        Tu número quedará reservado mientras completas el proceso de pago.
-      </p>
-
-      <div class="info">
-
-        <div class="info-box">
-          <small>Precio por número</small>
-          <strong>$5.00</strong>
-        </div>
-
-        <div class="info-box">
-          <small>Números disponibles</small>
-          <strong>580</strong>
-        </div>
-
-        <div class="info-box">
-          <small>Sorteo</small>
-          <strong>30 Oct.</strong>
-        </div>
-
+      <div class="info-box">
+        <small>Precio por número</small>
+        <strong>$5.00</strong>
       </div>
 
-      <div class="progress">
-
-        <div class="progress-top">
-          <span>Números vendidos</span>
-          <strong>42%</strong>
-        </div>
-
-        <div class="bar">
-          <div class="bar-fill"></div>
-        </div>
-
+      <div class="info-box">
+        <small>Números disponibles</small>
+        <strong id="availableCount">0</strong>
       </div>
 
-      <button class="button" onclick="elegirNumero()">
-        ELEGIR MI NÚMERO
-      </button>
-
-    </div>
-
-  </section>
-
-  <section class="how">
-
-    <h2>¿Cómo funciona?</h2>
-
-    <div class="steps">
-
-      <div class="step">
-        <div class="number">1</div>
-        <strong>Elige tu número</strong>
-        <p>Selecciona uno o varios números disponibles.</p>
-      </div>
-
-      <div class="step">
-        <div class="number">2</div>
-        <strong>Registra tus datos</strong>
-        <p>Ingresa tu nombre, WhatsApp y datos de contacto.</p>
-      </div>
-
-      <div class="step">
-        <div class="number">3</div>
-        <strong>Realiza el pago</strong>
-        <p>Paga y recibe tu confirmación de participación.</p>
+      <div class="info-box">
+        <small>Seleccionados</small>
+        <strong id="selectedCount">0</strong>
       </div>
 
     </div>
 
-  </section>
+    <input
+      type="number"
+      id="search"
+      class="search"
+      placeholder="🔎 Buscar número..."
+      min="1"
+    >
+
+    <div class="legend">
+
+      <div class="legend-item">
+        <div class="dot" style="background:#22c55e;"></div>
+        Disponible
+      </div>
+
+      <div class="legend-item">
+        <div class="dot" style="background:#facc15;"></div>
+        Reservado
+      </div>
+
+      <div class="legend-item">
+        <div class="dot" style="background:#ef4444;"></div>
+        Vendido
+      </div>
+
+    </div>
+
+    <div id="numbers" class="numbers"></div>
+
+    <div class="bottom">
+
+      <div class="bottom-row">
+
+        <div class="total">
+          <div>Total</div>
+          <strong id="total">$0.00</strong>
+        </div>
+
+        <button
+          id="continueButton"
+          class="continue"
+          disabled
+          onclick="continuar()"
+        >
+          CONTINUAR
+        </button>
+
+      </div>
+
+      <div id="message" class="message"></div>
+
+    </div>
+
+  </div>
 
 </div>
 
-<footer>
-  © 2026 Rifa+ · Plataforma de rifas online
-</footer>
-
 <script>
-  function elegirNumero() {
-    alert("Aquí construiremos la selección de números.");
+
+const PRICE = 5;
+
+// Cantidad de números de esta rifa.
+// Después podremos hacer que el administrador pueda cambiar esta cantidad.
+const TOTAL_NUMBERS = 100;
+
+let selectedNumbers = [];
+
+// Ejemplos temporales para demostrar los estados.
+// Más adelante estos datos vendrán de una base de datos real.
+const reservedNumbers = [7, 18, 32, 56];
+const soldNumbers = [3, 12, 25, 41, 72];
+
+const numbersContainer = document.getElementById("numbers");
+const selectedCount = document.getElementById("selectedCount");
+const availableCount = document.getElementById("availableCount");
+const totalElement = document.getElementById("total");
+const continueButton = document.getElementById("continueButton");
+const searchInput = document.getElementById("search");
+
+function renderNumbers(filter = "") {
+
+  numbersContainer.innerHTML = "";
+
+  let available = 0;
+
+  for (let i = 1; i <= TOTAL_NUMBERS; i++) {
+
+    if (reservedNumbers.includes(i)) {
+      // Reservado
+    } else if (soldNumbers.includes(i)) {
+      // Vendido
+    } else {
+      available++;
+    }
+
+    if (filter && !String(i).includes(filter)) {
+      continue;
+    }
+
+    const button = document.createElement("button");
+
+    button.textContent = String(i).padStart(2, "0");
+    button.classList.add("number");
+
+    if (soldNumbers.includes(i)) {
+
+      button.classList.add("sold");
+      button.disabled = true;
+
+    } else if (reservedNumbers.includes(i)) {
+
+      button.classList.add("reserved");
+      button.disabled = true;
+
+    } else {
+
+      button.classList.add("available");
+
+      if (selectedNumbers.includes(i)) {
+        button.classList.add("selected");
+      }
+
+      button.onclick = () => selectNumber(i);
+    }
+
+    numbersContainer.appendChild(button);
   }
+
+  availableCount.textContent = available;
+}
+
+function selectNumber(number) {
+
+  if (selectedNumbers.includes(number)) {
+
+    selectedNumbers = selectedNumbers.filter(n => n !== number);
+
+  } else {
+
+    selectedNumbers.push(number);
+
+  }
+
+  updateTotal();
+  renderNumbers(searchInput.value);
+}
+
+function updateTotal() {
+
+  selectedCount.textContent = selectedNumbers.length;
+
+  const total = selectedNumbers.length * PRICE;
+
+  totalElement.textContent =
+    "$" + total.toFixed(2);
+
+  continueButton.disabled =
+    selectedNumbers.length === 0;
+}
+
+searchInput.addEventListener("input", () => {
+
+  renderNumbers(searchInput.value);
+
+});
+
+function continuar() {
+
+  if (selectedNumbers.length === 0) {
+    return;
+  }
+
+  const numbers = selectedNumbers
+    .sort((a,b) => a-b)
+    .map(n => String(n).padStart(2, "0"))
+    .join(", ");
+
+  document.getElementById("message").style.color = "#86efac";
+
+  document.getElementById("message").textContent =
+    "Números seleccionados: " + numbers +
+    " · Total: $" +
+    (selectedNumbers.length * PRICE).toFixed(2);
+
+}
+
+// Cargar números inicialmente
+renderNumbers();
+
 </script>
 
 </body>
