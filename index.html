@@ -6,176 +6,188 @@
 <title>Rifa+</title>
 
 <style>
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  font-family: Arial, sans-serif;
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+  font-family:Arial,sans-serif;
 }
 
-body {
-  background: #f4f6f8;
-  color: #1f2937;
+body{
+  background:#f4f6f8;
+  color:#172033;
 }
 
-header {
-  background: #111827;
-  color: white;
-  padding: 18px;
-  text-align: center;
-  font-size: 25px;
-  font-weight: bold;
+header{
+  background:#111827;
+  color:white;
+  padding:20px;
+  text-align:center;
+  font-size:27px;
+  font-weight:bold;
 }
 
-.container {
-  max-width: 500px;
-  margin: auto;
-  padding: 20px;
+.container{
+  max-width:520px;
+  margin:auto;
+  padding:20px;
 }
 
-.card {
-  background: white;
-  border-radius: 18px;
-  padding: 22px;
-  margin-bottom: 18px;
-  box-shadow: 0 5px 20px rgba(0,0,0,.08);
+.card{
+  background:white;
+  border-radius:18px;
+  padding:22px;
+  margin-bottom:18px;
+  box-shadow:0 5px 20px rgba(0,0,0,.08);
 }
 
-h1 {
-  font-size: 25px;
-  margin-bottom: 10px;
+h1{
+  font-size:27px;
+  margin-bottom:8px;
 }
 
-h2 {
-  margin-bottom: 15px;
+h2{
+  margin-bottom:12px;
 }
 
-.info {
-  color: #6b7280;
-  margin-bottom: 8px;
+.info{
+  color:#6b7280;
+  margin:7px 0;
 }
 
-.price {
-  font-size: 28px;
-  font-weight: bold;
-  margin: 12px 0;
+.price{
+  font-size:30px;
+  font-weight:bold;
+  margin:16px 0;
 }
 
-input {
-  width: 100%;
-  padding: 14px;
-  margin: 8px 0;
-  border: 1px solid #d1d5db;
-  border-radius: 10px;
-  font-size: 16px;
+input{
+  width:100%;
+  padding:14px;
+  margin:8px 0;
+  border:1px solid #d1d5db;
+  border-radius:10px;
+  font-size:16px;
 }
 
-button {
-  width: 100%;
-  padding: 15px;
-  border: none;
-  border-radius: 12px;
-  background: #111827;
-  color: white;
-  font-size: 16px;
-  font-weight: bold;
-  cursor: pointer;
-  margin-top: 10px;
+button{
+  width:100%;
+  padding:15px;
+  border:0;
+  border-radius:12px;
+  background:#111827;
+  color:white;
+  font-size:16px;
+  font-weight:bold;
+  cursor:pointer;
+  margin-top:10px;
 }
 
-button:hover {
-  opacity: .9;
+button:hover{
+  opacity:.9;
 }
 
-.back {
-  background: #e5e7eb;
-  color: #111827;
+.blue{
+  background:#2563eb;
 }
 
-.numbers {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 8px;
-  margin-top: 15px;
+.green{
+  background:#059669;
 }
 
-.number {
-  padding: 12px 5px;
-  border-radius: 9px;
-  text-align: center;
-  font-weight: bold;
-  cursor: pointer;
-  background: #d1fae5;
-  color: #065f46;
+.gray{
+  background:#e5e7eb;
+  color:#111827;
 }
 
-.number.selected {
-  background: #2563eb;
-  color: white;
+.result{
+  margin-top:15px;
+  padding:18px;
+  border-radius:14px;
+  background:#f3f4f6;
+  text-align:center;
 }
 
-.number.reserved {
-  background: #fef3c7;
-  color: #92400e;
-  cursor: not-allowed;
+.available{
+  color:#059669;
+  font-weight:bold;
 }
 
-.number.sold {
-  background: #fee2e2;
-  color: #991b1b;
-  cursor: not-allowed;
+.sold{
+  color:#dc2626;
+  font-weight:bold;
 }
 
-.summary {
-  background: #f3f4f6;
-  padding: 15px;
-  border-radius: 12px;
-  margin-top: 15px;
+.selected-box{
+  margin-top:15px;
+  background:#eef2ff;
+  padding:16px;
+  border-radius:12px;
 }
 
-.payment-option {
-  border: 2px solid #e5e7eb;
-  border-radius: 15px;
-  padding: 18px;
-  margin-top: 12px;
-  cursor: pointer;
+.selected-number{
+  display:inline-block;
+  background:#2563eb;
+  color:white;
+  padding:7px 10px;
+  border-radius:8px;
+  margin:3px;
+  font-weight:bold;
 }
 
-.payment-option:hover {
-  border-color: #2563eb;
+.summary{
+  background:#f3f4f6;
+  padding:15px;
+  border-radius:12px;
+  margin-top:15px;
+  line-height:1.7;
 }
 
-.payment-option h3 {
-  margin-bottom: 6px;
+.payment-option{
+  border:2px solid #e5e7eb;
+  border-radius:15px;
+  padding:18px;
+  margin-top:12px;
+  cursor:pointer;
 }
 
-.bank-data {
-  background: #f9fafb;
-  padding: 15px;
-  border-radius: 12px;
-  margin-top: 15px;
-  line-height: 1.8;
-  display: none;
+.payment-option:hover{
+  border-color:#2563eb;
 }
 
-.hidden {
-  display: none;
+.bank-data{
+  background:#f9fafb;
+  padding:15px;
+  border-radius:12px;
+  margin-top:12px;
+  line-height:1.8;
+  display:none;
 }
 
-.success {
-  text-align: center;
-  padding: 25px 10px;
+.hidden{
+  display:none;
 }
 
-.success-icon {
-  font-size: 55px;
-  margin-bottom: 10px;
+.success{
+  text-align:center;
+  padding:30px 15px;
 }
 
-.small {
-  font-size: 14px;
-  color: #6b7280;
-  margin-top: 8px;
+.success-icon{
+  font-size:55px;
+  margin-bottom:10px;
+}
+
+.small{
+  color:#6b7280;
+  font-size:14px;
+  margin-top:8px;
+}
+
+hr{
+  border:0;
+  border-top:1px solid #e5e7eb;
+  margin:18px 0;
 }
 </style>
 </head>
@@ -188,435 +200,719 @@ button:hover {
 
 <div class="container">
 
-  <!-- PANTALLA 1 -->
-  <section id="screen1">
+<!-- ========================= -->
+<!-- PANTALLA 1 -->
+<!-- ========================= -->
 
-    <div class="card">
-      <h1>🎁 Gran Rifa</h1>
-      <p class="info">Participa y gana increíbles premios</p>
+<section id="screen1">
 
-      <div class="price">$5.00 por número</div>
+<div class="card">
 
-      <p class="info">580 números disponibles</p>
-      <p class="info">📅 Sorteo: 30 de octubre</p>
+<h1>🎁 Gran Rifa</h1>
 
-      <hr style="margin:18px 0;">
+<p class="info">
+Participa y gana increíbles premios
+</p>
 
-      <h2>Elige tus números</h2>
+<div class="price">
+$3.00 por número
+</div>
 
-      <input
-        type="number"
-        id="searchNumber"
-        placeholder="Buscar número..."
-        oninput="buscarNumero()"
-      >
+<p class="info">
+🔢 Números disponibles: <strong id="availableCount">9.993</strong>
+</p>
 
-      <div class="numbers" id="numbers"></div>
+<p class="info">
+📅 Sorteo: 30 de octubre
+</p>
 
-      <div class="summary">
-        <strong>Números seleccionados:</strong>
-        <span id="selectedNumbers">Ninguno</span>
-        <br><br>
-        <strong>Total:</strong>
-        $<span id="total">0.00</span>
-      </div>
+<hr>
 
-      <button onclick="goToForm()">CONTINUAR</button>
-    </div>
+<h2>🎟️ Elige tus números</h2>
 
-  </section>
+<p class="info">
+Escribe el número que quieres comprar.
+</p>
 
+<input
+  type="number"
+  id="numberSearch"
+  placeholder="Ejemplo: 750"
+  min="1"
+  oninput="searchNumber()"
+>
 
-  <!-- PANTALLA 2 -->
-  <section id="screen2" class="hidden">
+<div id="searchResult"></div>
 
-    <div class="card">
+<button class="blue" onclick="randomNumbers()">
+🎲 ELEGIR NÚMEROS AL AZAR
+</button>
 
-      <h2>👤 Tus datos</h2>
+<input
+  type="number"
+  id="randomQuantity"
+  placeholder="¿Cuántos números quieres?"
+  min="1"
+>
 
-      <p class="info">
-        Completa tus datos para continuar con el pago.
-      </p>
+<div class="selected-box">
 
-      <input
-        type="text"
-        id="name"
-        placeholder="Nombre completo"
-      >
+<strong>Mis números:</strong>
 
-      <input
-        type="text"
-        id="cedula"
-        placeholder="Cédula"
-        maxlength="10"
-      >
+<div id="selectedNumbers">
+Aún no has seleccionado números.
+</div>
 
-      <input
-        type="tel"
-        id="whatsapp"
-        placeholder="Número de WhatsApp"
-      >
+</div>
 
-      <input
-        type="email"
-        id="email"
-        placeholder="Correo electrónico"
-      >
+<div class="summary">
 
-      <div class="summary">
-        <strong>Tus números:</strong>
-        <span id="formNumbers"></span>
-        <br><br>
-        <strong>Total a pagar:</strong>
-        $<span id="formTotal"></span>
-      </div>
+<strong>Cantidad:</strong>
+<span id="quantity">0</span>
 
-      <button onclick="goToPayment()">
-        CONTINUAR AL PAGO
-      </button>
+<br>
 
-      <button class="back" onclick="showScreen(1)">
-        VOLVER
-      </button>
+<strong>Precio por número:</strong>
+$3.00
 
-    </div>
+<br>
 
-  </section>
+<strong>Total:</strong>
+$<span id="total">0.00</span>
 
+</div>
 
-  <!-- PANTALLA 3 -->
-  <section id="screen3" class="hidden">
+<button class="green" onclick="goToForm()">
+CONTINUAR
+</button>
 
-    <div class="card">
+</div>
 
-      <h2>💳 Método de pago</h2>
+</section>
 
-      <p class="info">
-        Selecciona cómo deseas pagar.
-      </p>
 
-      <div class="summary">
-        <strong>Números:</strong>
-        <span id="paymentNumbers"></span>
-        <br><br>
-        <strong>Total:</strong>
-        $<span id="paymentTotal"></span>
-      </div>
+<!-- ========================= -->
+<!-- PANTALLA 2 -->
+<!-- ========================= -->
 
+<section id="screen2" class="hidden">
 
-      <!-- TRANSFERENCIA -->
+<div class="card">
 
-      <div
-        class="payment-option"
-        onclick="showTransfer()"
-      >
-        <h3>🏦 Transferencia bancaria</h3>
-        <p class="small">
-          Realiza una transferencia y sube tu comprobante.
-        </p>
-      </div>
+<h2>👤 Tus datos</h2>
 
-      <div id="transferData" class="bank-data">
+<p class="info">
+Completa tus datos para continuar.
+</p>
 
-        <strong>Datos para la transferencia</strong>
+<input
+type="text"
+id="name"
+placeholder="Nombre completo"
+>
 
-        <br>
+<input
+type="text"
+id="cedula"
+placeholder="Cédula"
+maxlength="10"
+>
 
-        Banco: <strong>Banco de ejemplo</strong><br>
+<input
+type="tel"
+id="whatsapp"
+placeholder="Número de WhatsApp"
+>
 
-        Tipo de cuenta: <strong>Cuenta corriente</strong><br>
+<input
+type="email"
+id="email"
+placeholder="Correo electrónico"
+>
 
-        Titular: <strong>Nombre del titular</strong><br>
+<div class="summary">
 
-        Número de cuenta: <strong>0000000000</strong><br>
+<strong>Números:</strong>
 
-        Cédula/RUC: <strong>0000000000</strong>
+<div id="formNumbers"></div>
 
-        <hr style="margin:15px 0;">
+<br>
 
-        <p>
-          Una vez realizada la transferencia,
-          debes enviar el comprobante.
-        </p>
+<strong>Total:</strong>
+$<span id="formTotal">0.00</span>
 
-        <input
-          type="file"
-          id="proof"
-          accept="image/*,.pdf"
-        >
+</div>
 
-        <button onclick="finishTransfer()">
-          YA REALICÉ LA TRANSFERENCIA
-        </button>
+<button onclick="goToPayment()">
+CONTINUAR AL PAGO
+</button>
 
-      </div>
+<button class="gray" onclick="showScreen(1)">
+VOLVER
+</button>
 
+</div>
 
-      <!-- TARJETA -->
+</section>
 
-      <div
-        class="payment-option"
-        onclick="showCard()"
-      >
-        <h3>💳 Pago con tarjeta</h3>
-        <p class="small">
-          Paga de forma segura con tu tarjeta.
-        </p>
-      </div>
 
-      <div id="cardData" class="bank-data">
+<!-- ========================= -->
+<!-- PANTALLA 3 -->
+<!-- ========================= -->
 
-        <p>
-          El sistema de pago con tarjeta se conectará
-          posteriormente con una plataforma de pagos.
-        </p>
+<section id="screen3" class="hidden">
 
-        <button onclick="cardComingSoon()">
-          PAGAR CON TARJETA
-        </button>
+<div class="card">
 
-      </div>
+<h2>💳 Método de pago</h2>
 
+<div class="summary">
 
-      <button class="back" onclick="showScreen(2)">
-        VOLVER
-      </button>
+<strong>Números:</strong>
 
-    </div>
+<div id="paymentNumbers"></div>
 
-  </section>
+<br>
 
+<strong>Total:</strong>
+$<span id="paymentTotal">0.00</span>
 
-  <!-- PANTALLA 4 -->
+</div>
 
-  <section id="screen4" class="hidden">
 
-    <div class="card success">
+<!-- TRANSFERENCIA -->
 
-      <div class="success-icon">✅</div>
+<div class="payment-option" onclick="showTransfer()">
 
-      <h2>¡Solicitud recibida!</h2>
+<h3>🏦 Transferencia bancaria</h3>
 
-      <p>
-        Hemos registrado tu participación.
-      </p>
+<p class="small">
+Realiza una transferencia y envía tu comprobante.
+</p>
 
-      <br>
+</div>
 
-      <div class="summary">
-        <strong>Números:</strong>
-        <span id="successNumbers"></span>
+<div id="transferData" class="bank-data">
 
-        <br><br>
+<strong>Datos para la transferencia</strong>
 
-        <strong>Total:</strong>
-        $<span id="successTotal"></span>
+<br><br>
 
-        <br><br>
+Banco:
+<strong>Banco de ejemplo</strong>
 
-        <strong>Estado:</strong>
-        Pendiente de verificación
-      </div>
+<br>
 
-      <p class="small">
-        Tu participación quedará confirmada
-        después de verificar el pago.
-      </p>
+Tipo de cuenta:
+<strong>Cuenta corriente</strong>
 
-    </div>
+<br>
 
-  </section>
+Titular:
+<strong>Nombre del titular</strong>
+
+<br>
+
+Número de cuenta:
+<strong>0000000000</strong>
+
+<br>
+
+Cédula/RUC:
+<strong>0000000000</strong>
+
+<hr>
+
+<strong>Después de transferir:</strong>
+
+<input
+type="file"
+id="proof"
+accept="image/*,.pdf"
+>
+
+<button class="green" onclick="finishTransfer()">
+YA REALICÉ LA TRANSFERENCIA
+</button>
+
+</div>
+
+
+<!-- TARJETA -->
+
+<div class="payment-option" onclick="showCard()">
+
+<h3>💳 Pago con tarjeta</h3>
+
+<p class="small">
+Paga utilizando una tarjeta de crédito o débito.
+</p>
+
+</div>
+
+<div id="cardData" class="bank-data">
+
+<h3>💳 Pago con tarjeta</h3>
+
+<p class="small">
+El pago se realizará mediante una pasarela segura.
+</p>
+
+<button class="blue" onclick="cardPayment()">
+CONTINUAR CON TARJETA
+</button>
+
+</div>
+
+
+<!-- EFECTIVO -->
+
+<div class="payment-option" onclick="showCash()">
+
+<h3>💵 Pago en efectivo</h3>
+
+<p class="small">
+¿Quieres pagar en efectivo? Comunícate con nosotros.
+</p>
+
+</div>
+
+<div id="cashData" class="bank-data">
+
+<h3>💵 Compra pagando en efectivo</h3>
+
+<p>
+Llámanos o escríbenos para consultar la disponibilidad
+del número que deseas.
+</p>
+
+<br>
+
+<strong>📞 Teléfono / WhatsApp</strong>
+
+<h2>099 000 0000</h2>
+
+<p class="small">
+Indica qué número deseas comprar y coordinaremos
+el pago en efectivo.
+</p>
+
+</div>
+
+
+<button class="gray" onclick="showScreen(2)">
+VOLVER
+</button>
+
+</div>
+
+</section>
+
+
+<!-- ========================= -->
+<!-- PANTALLA 4 -->
+<!-- ========================= -->
+
+<section id="screen4" class="hidden">
+
+<div class="card success">
+
+<div class="success-icon">
+✅
+</div>
+
+<h2>¡Solicitud recibida!</h2>
+
+<p>
+Tu solicitud fue registrada correctamente.
+</p>
+
+<br>
+
+<div class="summary">
+
+<strong>Números:</strong>
+
+<div id="successNumbers"></div>
+
+<br>
+
+<strong>Total:</strong>
+$<span id="successTotal">0.00</span>
+
+<br><br>
+
+<strong>Estado:</strong>
+Pendiente de verificación.
+
+</div>
+
+<p class="small">
+La participación será confirmada después de verificar
+el pago.
+</p>
+
+</div>
+
+</section>
 
 </div>
 
 
 <script>
 
-const price = 5;
+/* =====================================
+   CONFIGURACIÓN DE LA RIFA
+===================================== */
+
+const PRICE = 3;
+
+/*
+   Esta cantidad será configurable
+   posteriormente desde el panel
+   de administrador.
+*/
+
+const TOTAL_NUMBERS = 10000;
+
+
+/*
+   Números vendidos de demostración.
+
+   Después estos datos vendrán
+   automáticamente de la base de datos.
+*/
+
+let soldNumbers = [
+  3,
+  12,
+  25,
+  41,
+  72,
+  750
+];
+
 
 let selectedNumbers = [];
 
-let reservedNumbers = [7,18,32,56];
 
-let soldNumbers = [3,12,25,41,72];
+/* =====================================
+   BUSCAR NÚMERO
+===================================== */
 
+function searchNumber(){
 
-// CREAR NÚMEROS
+  const input =
+    document.getElementById("numberSearch").value;
 
-function createNumbers() {
+  const result =
+    document.getElementById("searchResult");
 
-  const container = document.getElementById("numbers");
+  if(input === ""){
 
-  container.innerHTML = "";
+    result.innerHTML = "";
 
-  for(let i = 1; i <= 100; i++) {
-
-    const number = document.createElement("div");
-
-    number.className = "number";
-
-    number.textContent =
-      String(i).padStart(2,"0");
-
-    if(reservedNumbers.includes(i)) {
-
-      number.classList.add("reserved");
-
-    }
-    else if(soldNumbers.includes(i)) {
-
-      number.classList.add("sold");
-
-    }
-    else {
-
-      number.onclick = function() {
-        selectNumber(i, number);
-      };
-
-    }
-
-    container.appendChild(number);
+    return;
   }
+
+  const number = parseInt(input);
+
+  if(number < 1 || number > TOTAL_NUMBERS){
+
+    result.innerHTML = `
+      <div class="result">
+        ❌ Ese número no existe.
+        <br>
+        Elige un número entre 1 y ${TOTAL_NUMBERS}.
+      </div>
+    `;
+
+    return;
+  }
+
+
+  if(soldNumbers.includes(number)){
+
+    result.innerHTML = `
+      <div class="result">
+        <strong>Número ${number}</strong>
+        <br>
+        <span class="sold">
+        🔴 Ya está vendido
+        </span>
+      </div>
+    `;
+
+    return;
+  }
+
+
+  if(selectedNumbers.includes(number)){
+
+    result.innerHTML = `
+      <div class="result">
+        <strong>Número ${number}</strong>
+        <br>
+        <span class="available">
+        🟢 Ya está seleccionado
+        </span>
+      </div>
+    `;
+
+    return;
+  }
+
+
+  result.innerHTML = `
+    <div class="result">
+
+      <strong>Número ${number}</strong>
+
+      <br>
+
+      <span class="available">
+      🟢 Disponible
+      </span>
+
+      <button
+      class="green"
+      onclick="addNumber(${number})"
+      >
+      AGREGAR NÚMERO
+      </button>
+
+    </div>
+  `;
 }
 
 
-// SELECCIONAR NÚMERO
+/* =====================================
+   AGREGAR NÚMERO
+===================================== */
 
-function selectNumber(number, element) {
+function addNumber(number){
 
-  if(selectedNumbers.includes(number)) {
+  if(soldNumbers.includes(number)){
 
-    selectedNumbers =
-      selectedNumbers.filter(n => n !== number);
+    alert("Ese número ya está vendido.");
 
-    element.classList.remove("selected");
+    return;
+  }
 
-  } else {
+
+  if(!selectedNumbers.includes(number)){
 
     selectedNumbers.push(number);
 
-    element.classList.add("selected");
+    selectedNumbers.sort((a,b)=>a-b);
+
   }
 
+
   updateSummary();
+
+  document.getElementById("numberSearch").value = "";
+
+  document.getElementById("searchResult").innerHTML = "";
 }
 
 
-// ACTUALIZAR RESUMEN
+/* =====================================
+   ELEGIR NÚMEROS AL AZAR
+===================================== */
 
-function updateSummary() {
+function randomNumbers(){
 
-  const numbersText =
-    selectedNumbers.length
-      ? selectedNumbers
-          .sort((a,b)=>a-b)
-          .map(n => String(n).padStart(2,"0"))
-          .join(", ")
-      : "Ninguno";
+  const quantity =
+    parseInt(
+      document.getElementById("randomQuantity").value
+    );
 
-  document.getElementById("selectedNumbers").textContent =
-    numbersText;
 
-  document.getElementById("total").textContent =
-    (selectedNumbers.length * price).toFixed(2);
+  if(!quantity || quantity < 1){
+
+    alert("Indica cuántos números quieres.");
+
+    return;
+  }
+
+
+  const available = [];
+
+
+  for(let i=1; i<=TOTAL_NUMBERS; i++){
+
+    if(
+      !soldNumbers.includes(i) &&
+      !selectedNumbers.includes(i)
+    ){
+
+      available.push(i);
+
+    }
+
+  }
+
+
+  if(quantity > available.length){
+
+    alert("No hay suficientes números disponibles.");
+
+    return;
+  }
+
+
+  /* Mezclar números */
+
+  available.sort(() => Math.random() - 0.5);
+
+
+  const chosen =
+    available.slice(0,quantity);
+
+
+  selectedNumbers =
+    selectedNumbers.concat(chosen);
+
+
+  selectedNumbers.sort((a,b)=>a-b);
+
+
+  updateSummary();
+
 }
 
 
-// BUSCAR NÚMERO
+/* =====================================
+   ACTUALIZAR RESUMEN
+===================================== */
 
-function buscarNumero() {
+function updateSummary(){
 
-  const value =
-    parseInt(document.getElementById("searchNumber").value);
+  const box =
+    document.getElementById("selectedNumbers");
 
-  document.querySelectorAll(".number")
-    .forEach(el => {
 
-      const number =
-        parseInt(el.textContent);
+  if(selectedNumbers.length === 0){
 
-      if(!value || number === value) {
+    box.innerHTML =
+      "Aún no has seleccionado números.";
 
-        el.style.display = "block";
+  }else{
 
-      } else {
+    box.innerHTML =
+      selectedNumbers.map(n => `
+        <span class="selected-number">
+          ${String(n).padStart(4,"0")}
+        </span>
+      `).join("");
 
-        el.style.display = "none";
+  }
 
-      }
 
-    });
+  document.getElementById("quantity")
+    .textContent =
+    selectedNumbers.length;
+
+
+  document.getElementById("total")
+    .textContent =
+    (selectedNumbers.length * PRICE)
+    .toFixed(2);
+
+
+  document.getElementById("availableCount")
+    .textContent =
+    (
+      TOTAL_NUMBERS -
+      soldNumbers.length
+    ).toLocaleString();
+
 }
 
 
-// CAMBIAR PANTALLA
+/* =====================================
+   CAMBIAR PANTALLA
+===================================== */
 
-function showScreen(screen) {
+function showScreen(screen){
 
-  document.getElementById("screen1")
-    .classList.add("hidden");
+  for(let i=1;i<=4;i++){
 
-  document.getElementById("screen2")
-    .classList.add("hidden");
+    document
+      .getElementById("screen"+i)
+      .classList.add("hidden");
 
-  document.getElementById("screen3")
-    .classList.add("hidden");
+  }
 
-  document.getElementById("screen4")
-    .classList.add("hidden");
 
-  document.getElementById("screen" + screen)
+  document
+    .getElementById("screen"+screen)
     .classList.remove("hidden");
+
 
   window.scrollTo(0,0);
 }
 
 
-// IR AL FORMULARIO
+/* =====================================
+   IR A DATOS
+===================================== */
 
-function goToForm() {
+function goToForm(){
 
-  if(selectedNumbers.length === 0) {
+  if(selectedNumbers.length === 0){
 
     alert("Selecciona al menos un número.");
 
     return;
   }
 
-  const text =
-    selectedNumbers
-      .sort((a,b)=>a-b)
-      .map(n => String(n).padStart(2,"0"))
-      .join(", ");
 
-  document.getElementById("formNumbers").textContent = text;
+  document.getElementById("formNumbers")
+    .innerHTML =
+    selectedNumbers.map(n =>
+      String(n).padStart(4,"0")
+    ).join(", ");
 
-  document.getElementById("formTotal").textContent =
-    (selectedNumbers.length * price).toFixed(2);
+
+  document.getElementById("formTotal")
+    .textContent =
+    (selectedNumbers.length * PRICE)
+    .toFixed(2);
+
 
   showScreen(2);
 }
 
 
-// IR AL PAGO
+/* =====================================
+   IR A PAGO
+===================================== */
 
-function goToPayment() {
+function goToPayment(){
 
   const name =
-    document.getElementById("name").value.trim();
+    document.getElementById("name")
+    .value.trim();
+
 
   const cedula =
-    document.getElementById("cedula").value.trim();
+    document.getElementById("cedula")
+    .value.trim();
+
 
   const whatsapp =
-    document.getElementById("whatsapp").value.trim();
+    document.getElementById("whatsapp")
+    .value.trim();
+
 
   const email =
-    document.getElementById("email").value.trim();
+    document.getElementById("email")
+    .value.trim();
 
 
-  if(!name || !cedula || !whatsapp || !email) {
+  if(!name || !cedula || !whatsapp || !email){
 
     alert("Completa todos los datos.");
 
@@ -624,7 +920,7 @@ function goToPayment() {
   }
 
 
-  if(cedula.length !== 10) {
+  if(cedula.length !== 10){
 
     alert("La cédula debe tener 10 dígitos.");
 
@@ -632,7 +928,7 @@ function goToPayment() {
   }
 
 
-  if(!email.includes("@")) {
+  if(!email.includes("@")){
 
     alert("Ingresa un correo válido.");
 
@@ -640,87 +936,149 @@ function goToPayment() {
   }
 
 
-  const text =
-    selectedNumbers
-      .sort((a,b)=>a-b)
-      .map(n => String(n).padStart(2,"0"))
-      .join(", ");
+  document.getElementById("paymentNumbers")
+    .innerHTML =
+    selectedNumbers.map(n =>
+      String(n).padStart(4,"0")
+    ).join(", ");
 
-  document.getElementById("paymentNumbers").textContent = text;
 
-  document.getElementById("paymentTotal").textContent =
-    (selectedNumbers.length * price).toFixed(2);
+  document.getElementById("paymentTotal")
+    .textContent =
+    (selectedNumbers.length * PRICE)
+    .toFixed(2);
+
 
   showScreen(3);
 }
 
 
-// MOSTRAR TRANSFERENCIA
+/* =====================================
+   MOSTRAR TRANSFERENCIA
+===================================== */
 
-function showTransfer() {
+function showTransfer(){
+
+  hidePayments();
 
   document.getElementById("transferData")
     .style.display = "block";
 
-  document.getElementById("cardData")
-    .style.display = "none";
 }
 
 
-// MOSTRAR TARJETA
+/* =====================================
+   MOSTRAR TARJETA
+===================================== */
 
-function showCard() {
+function showCard(){
+
+  hidePayments();
 
   document.getElementById("cardData")
     .style.display = "block";
 
-  document.getElementById("transferData")
-    .style.display = "none";
 }
 
 
-// FINALIZAR TRANSFERENCIA
+/* =====================================
+   MOSTRAR EFECTIVO
+===================================== */
 
-function finishTransfer() {
+function showCash(){
+
+  hidePayments();
+
+  document.getElementById("cashData")
+    .style.display = "block";
+
+}
+
+
+/* =====================================
+   OCULTAR PAGOS
+===================================== */
+
+function hidePayments(){
+
+  document.getElementById("transferData")
+    .style.display = "none";
+
+  document.getElementById("cardData")
+    .style.display = "none";
+
+  document.getElementById("cashData")
+    .style.display = "none";
+
+}
+
+
+/* =====================================
+   TRANSFERENCIA
+===================================== */
+
+function finishTransfer(){
 
   const proof =
-    document.getElementById("proof").files[0];
+    document.getElementById("proof")
+    .files[0];
 
-  if(!proof) {
 
-    alert("Debes seleccionar el comprobante de transferencia.");
+  if(!proof){
+
+    alert(
+      "Selecciona el comprobante de transferencia."
+    );
 
     return;
   }
 
 
-  const text =
-    selectedNumbers
-      .sort((a,b)=>a-b)
-      .map(n => String(n).padStart(2,"0"))
-      .join(", ");
+  finishPurchase();
 
-  document.getElementById("successNumbers").textContent =
-    text;
-
-  document.getElementById("successTotal").textContent =
-    (selectedNumbers.length * price).toFixed(2);
-
-  showScreen(4);
 }
 
 
-// TARJETA
+/* =====================================
+   TARJETA
+===================================== */
 
-function cardComingSoon() {
+function cardPayment(){
 
   alert(
-    "El pago con tarjeta se conectará próximamente."
+    "La pasarela de pago con tarjeta se conectará en la siguiente etapa."
   );
+
 }
 
 
-createNumbers();
+/* =====================================
+   FINALIZAR
+===================================== */
+
+function finishPurchase(){
+
+  document.getElementById("successNumbers")
+    .innerHTML =
+    selectedNumbers.map(n =>
+      String(n).padStart(4,"0")
+    ).join(", ");
+
+
+  document.getElementById("successTotal")
+    .textContent =
+    (selectedNumbers.length * PRICE)
+    .toFixed(2);
+
+
+  showScreen(4);
+
+}
+
+
+/* =====================================
+   INICIO
+===================================== */
 
 updateSummary();
 
