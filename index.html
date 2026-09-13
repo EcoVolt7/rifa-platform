@@ -1,1086 +1,1134 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Rifa+</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rifa+</title>
 
-<style>
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-  font-family:Arial,sans-serif;
-}
+  <style>
+    * {
+      box-sizing: border-box;
+    }
 
-body{
-  background:#f4f6f8;
-  color:#172033;
-}
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f4f6f8;
+      color: #222;
+    }
 
-header{
-  background:#111827;
-  color:white;
-  padding:20px;
-  text-align:center;
-  font-size:27px;
-  font-weight:bold;
-}
+    .container {
+      width: 100%;
+      max-width: 520px;
+      margin: 0 auto;
+      min-height: 100vh;
+      background: white;
+      padding: 20px;
+    }
 
-.container{
-  max-width:520px;
-  margin:auto;
-  padding:20px;
-}
+    .screen {
+      display: none;
+      min-height: calc(100vh - 40px);
+      flex-direction: column;
+    }
 
-.card{
-  background:white;
-  border-radius:18px;
-  padding:22px;
-  margin-bottom:18px;
-  box-shadow:0 5px 20px rgba(0,0,0,.08);
-}
+    .screen.active {
+      display: flex;
+    }
 
-h1{
-  font-size:27px;
-  margin-bottom:8px;
-}
+    .logo {
+      text-align: center;
+      font-size: 34px;
+      font-weight: bold;
+      margin-top: 10px;
+      margin-bottom: 25px;
+      color: #111;
+    }
 
-h2{
-  margin-bottom:12px;
-}
+    h1 {
+      text-align: center;
+      font-size: 32px;
+      margin: 15px 0 8px;
+    }
 
-.info{
-  color:#6b7280;
-  margin:7px 0;
-}
+    h2 {
+      text-align: center;
+      font-size: 25px;
+      margin-bottom: 20px;
+    }
 
-.price{
-  font-size:30px;
-  font-weight:bold;
-  margin:16px 0;
-}
+    .info {
+      text-align: center;
+      font-size: 17px;
+      line-height: 1.5;
+      color: #555;
+    }
 
-input{
-  width:100%;
-  padding:14px;
-  margin:8px 0;
-  border:1px solid #d1d5db;
-  border-radius:10px;
-  font-size:16px;
-}
+    .price {
+      text-align: center;
+      font-size: 28px;
+      font-weight: bold;
+      margin: 22px 0;
+      color: #111;
+    }
 
-button{
-  width:100%;
-  padding:15px;
-  border:0;
-  border-radius:12px;
-  background:#111827;
-  color:white;
-  font-size:16px;
-  font-weight:bold;
-  cursor:pointer;
-  margin-top:10px;
-}
+    .card {
+      background: #f8f9fa;
+      border-radius: 18px;
+      padding: 20px;
+      margin-top: 18px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    }
 
-button:hover{
-  opacity:.9;
-}
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 7px;
+      margin-top: 15px;
+    }
 
-.blue{
-  background:#2563eb;
-}
+    input,
+    select {
+      width: 100%;
+      padding: 14px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      font-size: 16px;
+      outline: none;
+    }
 
-.green{
-  background:#059669;
-}
+    input:focus {
+      border-color: #111;
+    }
 
-.gray{
-  background:#e5e7eb;
-  color:#111827;
-}
+    button {
+      width: 100%;
+      padding: 15px;
+      margin-top: 15px;
+      border: none;
+      border-radius: 12px;
+      background: #111;
+      color: white;
+      font-size: 17px;
+      font-weight: bold;
+      cursor: pointer;
+    }
 
-.result{
-  margin-top:15px;
-  padding:18px;
-  border-radius:14px;
-  background:#f3f4f6;
-  text-align:center;
-}
+    button:hover {
+      opacity: 0.9;
+    }
 
-.available{
-  color:#059669;
-  font-weight:bold;
-}
+    .secondary {
+      background: #e9ecef;
+      color: #111;
+    }
 
-.sold{
-  color:#dc2626;
-  font-weight:bold;
-}
+    .success-btn {
+      background: #16833b;
+    }
 
-.selected-box{
-  margin-top:15px;
-  background:#eef2ff;
-  padding:16px;
-  border-radius:12px;
-}
+    .danger-btn {
+      background: #c62828;
+    }
 
-.selected-number{
-  display:inline-block;
-  background:#2563eb;
-  color:white;
-  padding:7px 10px;
-  border-radius:8px;
-  margin:3px;
-  font-weight:bold;
-}
+    .number-result {
+      margin-top: 15px;
+      padding: 15px;
+      border-radius: 12px;
+      text-align: center;
+      font-weight: bold;
+      display: none;
+    }
 
-.summary{
-  background:#f3f4f6;
-  padding:15px;
-  border-radius:12px;
-  margin-top:15px;
-  line-height:1.7;
-}
+    .available {
+      background: #dff5e5;
+      color: #16833b;
+    }
 
-.payment-option{
-  border:2px solid #e5e7eb;
-  border-radius:15px;
-  padding:18px;
-  margin-top:12px;
-  cursor:pointer;
-}
+    .sold {
+      background: #ffe0e0;
+      color: #c62828;
+    }
 
-.payment-option:hover{
-  border-color:#2563eb;
-}
+    .selected-numbers {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 15px;
+    }
 
-.bank-data{
-  background:#f9fafb;
-  padding:15px;
-  border-radius:12px;
-  margin-top:12px;
-  line-height:1.8;
-  display:none;
-}
+    .number-chip {
+      background: #111;
+      color: white;
+      padding: 9px 12px;
+      border-radius: 20px;
+      font-weight: bold;
+      font-size: 14px;
+    }
 
-.hidden{
-  display:none;
-}
+    .total-box {
+      margin-top: 20px;
+      background: #111;
+      color: white;
+      padding: 17px;
+      border-radius: 12px;
+      text-align: center;
+      font-size: 20px;
+      font-weight: bold;
+    }
 
-.success{
-  text-align:center;
-  padding:30px 15px;
-}
+    .payment-option {
+      border: 2px solid #ddd;
+      border-radius: 14px;
+      padding: 18px;
+      margin-top: 12px;
+      cursor: pointer;
+    }
 
-.success-icon{
-  font-size:55px;
-  margin-bottom:10px;
-}
+    .payment-option:hover {
+      border-color: #111;
+    }
 
-.small{
-  color:#6b7280;
-  font-size:14px;
-  margin-top:8px;
-}
+    .payment-option strong {
+      display: block;
+      font-size: 18px;
+      margin-bottom: 5px;
+    }
 
-hr{
-  border:0;
-  border-top:1px solid #e5e7eb;
-  margin:18px 0;
-}
-</style>
+    .payment-details {
+      background: #fff;
+      border-radius: 12px;
+      padding: 15px;
+      margin-top: 15px;
+      border: 1px solid #ddd;
+      line-height: 1.7;
+    }
+
+    .success {
+      text-align: center;
+      margin-top: 50px;
+    }
+
+    .success-icon {
+      font-size: 70px;
+      margin-bottom: 15px;
+    }
+
+    .social-footer {
+      margin-top: auto;
+      padding: 25px 5px 10px;
+      text-align: center;
+      border-top: 1px solid #eee;
+    }
+
+    .social-footer strong {
+      display: block;
+      margin-bottom: 12px;
+      font-size: 16px;
+    }
+
+    .social-footer a {
+      display: block;
+      text-decoration: none;
+      color: #222;
+      margin: 8px 0;
+      font-size: 15px;
+    }
+
+    .social-footer a:hover {
+      text-decoration: underline;
+    }
+
+    .small-text {
+      font-size: 13px;
+      color: #777;
+      text-align: center;
+      margin-top: 10px;
+      line-height: 1.5;
+    }
+  </style>
 </head>
 
 <body>
 
-<header>
-  Rifa+
-</header>
-
 <div class="container">
 
-<!-- ========================= -->
-<!-- PANTALLA 1 -->
-<!-- ========================= -->
+  <!-- PANTALLA 1 -->
+  <section id="screen1" class="screen active">
 
-<section id="screen1">
+    <div class="logo">Rifa+</div>
 
-<div class="card">
+    <h1>Gran Sorteo</h1>
 
-<h1>🎁 Gran Rifa</h1>
+    <p class="info">
+      Participa y gana una moto ecológica
+    </p>
 
-<p class="info">
-Participa y gana increíbles premios
-</p>
+    <div class="price">
+      $3.00 por número
+    </div>
 
-<div class="price">
-$3.00 por número
-</div>
+    <div class="card">
 
-<p class="info">
-🔢 Números disponibles: <strong id="availableCount">9.993</strong>
-</p>
+      <h2>Elige tus números</h2>
 
-<p class="info">
-📅 Sorteo: 30 de octubre
-</p>
+      <label for="numberSearch">
+        Buscar un número
+      </label>
 
-<hr>
+      <input
+        type="number"
+        id="numberSearch"
+        placeholder="Ejemplo: 125"
+        min="1"
+        max="10000"
+      >
 
-<h2>🎟️ Elige tus números</h2>
+      <button onclick="searchNumber()">
+        🔎 Buscar número
+      </button>
 
-<p class="info">
-Escribe el número que quieres comprar.
-</p>
+      <div id="numberResult" class="number-result"></div>
 
-<input
-  type="number"
-  id="numberSearch"
-  placeholder="Ejemplo: 750"
-  min="1"
-  oninput="searchNumber()"
->
+      <hr style="margin:25px 0;border:none;border-top:1px solid #ddd;">
 
-<div id="searchResult"></div>
+      <label for="randomQuantity">
+        O elige números al azar
+      </label>
 
-<button class="blue" onclick="randomNumbers()">
-🎲 ELEGIR NÚMEROS AL AZAR
-</button>
+      <input
+        type="number"
+        id="randomQuantity"
+        placeholder="¿Cuántos números?"
+        min="1"
+      >
 
-<input
-  type="number"
-  id="randomQuantity"
-  placeholder="¿Cuántos números quieres?"
-  min="1"
->
+      <button onclick="randomNumbers()">
+        🎲 Elegir números al azar
+      </button>
 
-<div class="selected-box">
+      <div id="selectedNumbers" class="selected-numbers"></div>
 
-<strong>Mis números:</strong>
+      <div id="totalBox" class="total-box">
+        Total: $0.00
+      </div>
 
-<div id="selectedNumbers">
-Aún no has seleccionado números.
-</div>
+      <button onclick="goToParticipant()">
+        Continuar
+      </button>
 
-</div>
+    </div>
 
-<div class="summary">
+    <footer class="social-footer">
+      <strong>Síguenos</strong>
 
-<strong>Cantidad:</strong>
-<span id="quantity">0</span>
+      <a href="https://www.instagram.com/ecovoltmilagro.ec/"
+         target="_blank">
+        📸 Instagram: @ecovoltmilagro.ec
+      </a>
 
-<br>
+      <a href="https://www.tiktok.com/@ecovoltt"
+         target="_blank">
+        🎵 TikTok: @ecovoltt
+      </a>
 
-<strong>Precio por número:</strong>
-$3.00
+      <a href="https://wa.me/593997715958"
+         target="_blank">
+        💬 WhatsApp: 099 771 5958
+      </a>
+    </footer>
 
-<br>
+  </section>
 
-<strong>Total:</strong>
-$<span id="total">0.00</span>
 
-</div>
+  <!-- PANTALLA 2 -->
+  <section id="screen2" class="screen">
 
-<button class="green" onclick="goToForm()">
-CONTINUAR
-</button>
+    <div class="logo">Rifa+</div>
 
-</div>
+    <h2>Datos del participante</h2>
 
-</section>
+    <div class="card">
 
+      <label for="fullName">
+        Nombre completo
+      </label>
 
-<!-- ========================= -->
-<!-- PANTALLA 2 -->
-<!-- ========================= -->
-
-<section id="screen2" class="hidden">
-
-<div class="card">
-
-<h2>👤 Tus datos</h2>
-
-<p class="info">
-Completa tus datos para continuar.
-</p>
-
-<input
-type="text"
-id="name"
-placeholder="Nombre completo"
->
-
-<input
-type="text"
-id="cedula"
-placeholder="Cédula"
-maxlength="10"
->
-
-<input
-type="tel"
-id="whatsapp"
-placeholder="Número de WhatsApp"
->
-
-<input
-type="email"
-id="email"
-placeholder="Correo electrónico"
->
-
-<div class="summary">
-
-<strong>Números:</strong>
-
-<div id="formNumbers"></div>
-
-<br>
-
-<strong>Total:</strong>
-$<span id="formTotal">0.00</span>
-
-</div>
-
-<button onclick="goToPayment()">
-CONTINUAR AL PAGO
-</button>
-
-<button class="gray" onclick="showScreen(1)">
-VOLVER
-</button>
-
-</div>
-
-</section>
-
-
-<!-- ========================= -->
-<!-- PANTALLA 3 -->
-<!-- ========================= -->
-
-<section id="screen3" class="hidden">
-
-<div class="card">
-
-<h2>💳 Método de pago</h2>
-
-<div class="summary">
-
-<strong>Números:</strong>
-
-<div id="paymentNumbers"></div>
-
-<br>
-
-<strong>Total:</strong>
-$<span id="paymentTotal">0.00</span>
-
-</div>
-
-
-<!-- TRANSFERENCIA -->
-
-<div class="payment-option" onclick="showTransfer()">
-
-<h3>🏦 Transferencia bancaria</h3>
-
-<p class="small">
-Realiza una transferencia y envía tu comprobante.
-</p>
-
-</div>
-
-<div id="transferData" class="bank-data">
-
-<strong>Datos para la transferencia</strong>
-
-<br><br>
-
-Banco:
-<strong>Banco de ejemplo</strong>
-
-<br>
-
-Tipo de cuenta:
-<strong>Cuenta corriente</strong>
-
-<br>
-
-Titular:
-<strong>Nombre del titular</strong>
-
-<br>
-
-Número de cuenta:
-<strong>0000000000</strong>
-
-<br>
-
-Cédula/RUC:
-<strong>0000000000</strong>
-
-<hr>
-
-<strong>Después de transferir:</strong>
-
-<input
-type="file"
-id="proof"
-accept="image/*,.pdf"
->
-
-<button class="green" onclick="finishTransfer()">
-YA REALICÉ LA TRANSFERENCIA
-</button>
-
-</div>
-
-
-<!-- TARJETA -->
-
-<div class="payment-option" onclick="showCard()">
-
-<h3>💳 Pago con tarjeta</h3>
-
-<p class="small">
-Paga utilizando una tarjeta de crédito o débito.
-</p>
-
-</div>
-
-<div id="cardData" class="bank-data">
-
-<h3>💳 Pago con tarjeta</h3>
-
-<p class="small">
-El pago se realizará mediante una pasarela segura.
-</p>
-
-<button class="blue" onclick="cardPayment()">
-CONTINUAR CON TARJETA
-</button>
-
-</div>
-
-
-<!-- EFECTIVO -->
-
-<div class="payment-option" onclick="showCash()">
-
-<h3>💵 Pago en efectivo</h3>
-
-<p class="small">
-¿Quieres pagar en efectivo? Comunícate con nosotros.
-</p>
-
-</div>
-
-<div id="cashData" class="bank-data">
-
-<h3>💵 Compra pagando en efectivo</h3>
-
-<p>
-Llámanos o escríbenos para consultar la disponibilidad
-del número que deseas.
-</p>
-
-<br>
-
-<strong>📞 Teléfono / WhatsApp</strong>
-
-<h2>099 000 0000</h2>
-
-<p class="small">
-Indica qué número deseas comprar y coordinaremos
-el pago en efectivo.
-</p>
-
-</div>
-
-
-<button class="gray" onclick="showScreen(2)">
-VOLVER
-</button>
-
-</div>
-
-</section>
-
-
-<!-- ========================= -->
-<!-- PANTALLA 4 -->
-<!-- ========================= -->
-
-<section id="screen4" class="hidden">
-
-<div class="card success">
-
-<div class="success-icon">
-✅
-</div>
-
-<h2>¡Solicitud recibida!</h2>
-
-<p>
-Tu solicitud fue registrada correctamente.
-</p>
-
-<br>
-
-<div class="summary">
-
-<strong>Números:</strong>
-
-<div id="successNumbers"></div>
-
-<br>
-
-<strong>Total:</strong>
-$<span id="successTotal">0.00</span>
-
-<br><br>
-
-<strong>Estado:</strong>
-Pendiente de verificación.
-
-</div>
-
-<p class="small">
-La participación será confirmada después de verificar
-el pago.
-</p>
-
-</div>
-
-</section>
+      <input
+        type="text"
+        id="fullName"
+        placeholder="Escribe tu nombre completo"
+      >
+
+      <label for="cedula">
+        Cédula
+      </label>
+
+      <input
+        type="text"
+        id="cedula"
+        placeholder="Escribe tu número de cédula"
+      >
+
+      <label for="phone">
+        WhatsApp
+      </label>
+
+      <input
+        type="tel"
+        id="phone"
+        placeholder="Ejemplo: 0991234567"
+      >
+
+      <label for="email">
+        Correo electrónico
+      </label>
+
+      <input
+        type="email"
+        id="email"
+        placeholder="correo@ejemplo.com"
+      >
+
+      <button onclick="goToPayment()">
+        Continuar al pago
+      </button>
+
+      <button class="secondary" onclick="showScreen('screen1')">
+        Regresar
+      </button>
+
+    </div>
+
+    <footer class="social-footer">
+      <strong>Síguenos</strong>
+
+      <a href="https://www.instagram.com/ecovoltmilagro.ec/"
+         target="_blank">
+        📸 Instagram: @ecovoltmilagro.ec
+      </a>
+
+      <a href="https://www.tiktok.com/@ecovoltt"
+         target="_blank">
+        🎵 TikTok: @ecovoltt
+      </a>
+
+      <a href="https://wa.me/593997715958"
+         target="_blank">
+        💬 WhatsApp: 099 771 5958
+      </a>
+    </footer>
+
+  </section>
+
+
+  <!-- PANTALLA 3 -->
+  <section id="screen3" class="screen">
+
+    <div class="logo">Rifa+</div>
+
+    <h2>Forma de pago</h2>
+
+    <div class="total-box">
+      Total a pagar: <span id="paymentTotal">$0.00</span>
+    </div>
+
+    <div
+      class="payment-option"
+      onclick="selectPayment('transfer')"
+    >
+      <strong>🏦 Transferencia bancaria</strong>
+      <span>
+        Realiza una transferencia y envía el comprobante.
+      </span>
+    </div>
+
+    <div
+      class="payment-option"
+      onclick="selectPayment('card')"
+    >
+      <strong>💳 Tarjeta</strong>
+      <span>
+        Pago con tarjeta de crédito o débito.
+      </span>
+    </div>
+
+    <div
+      class="payment-option"
+      onclick="selectPayment('cash')"
+    >
+      <strong>💵 Efectivo</strong>
+      <span>
+        Comunícate por WhatsApp para coordinar el pago.
+      </span>
+    </div>
+
+    <div id="paymentDetails"></div>
+
+    <button class="secondary" onclick="showScreen('screen2')">
+      Regresar
+    </button>
+
+    <footer class="social-footer">
+      <strong>Síguenos</strong>
+
+      <a href="https://www.instagram.com/ecovoltmilagro.ec/"
+         target="_blank">
+        📸 Instagram: @ecovoltmilagro.ec
+      </a>
+
+      <a href="https://www.tiktok.com/@ecovoltt"
+         target="_blank">
+        🎵 TikTok: @ecovoltt
+      </a>
+
+      <a href="https://wa.me/593997715958"
+         target="_blank">
+        💬 WhatsApp: 099 771 5958
+      </a>
+    </footer>
+
+  </section>
+
+
+  <!-- PANTALLA 4 -->
+  <section id="screen4" class="screen">
+
+    <div class="logo">Rifa+</div>
+
+    <div class="success">
+
+      <div class="success-icon">
+        ✅
+      </div>
+
+      <h1>¡Listo!</h1>
+
+      <p class="info">
+        Tu solicitud ha sido registrada correctamente.
+      </p>
+
+      <div class="card">
+
+        <p>
+          <strong>Números seleccionados:</strong>
+        </p>
+
+        <div id="finalNumbers"
+             class="selected-numbers">
+        </div>
+
+        <div class="total-box">
+          Total: <span id="finalTotal">$0.00</span>
+        </div>
+
+        <p class="small-text">
+          Guarda esta información. Una vez confirmado el pago,
+          tus números quedarán registrados como vendidos.
+        </p>
+
+      </div>
+
+      <button onclick="restart()">
+        Volver al inicio
+      </button>
+
+    </div>
+
+    <footer class="social-footer">
+      <strong>Síguenos</strong>
+
+      <a href="https://www.instagram.com/ecovoltmilagro.ec/"
+         target="_blank">
+        📸 Instagram: @ecovoltmilagro.ec
+      </a>
+
+      <a href="https://www.tiktok.com/@ecovoltt"
+         target="_blank">
+        🎵 TikTok: @ecovoltt
+      </a>
+
+      <a href="https://wa.me/593997715958"
+         target="_blank">
+        💬 WhatsApp: 099 771 5958
+      </a>
+    </footer>
+
+  </section>
 
 </div>
 
 
 <script>
 
-/* =====================================
-   CONFIGURACIÓN DE LA RIFA
-===================================== */
+  // ==========================
+  // CONFIGURACIÓN
+  // ==========================
 
-const PRICE = 3;
+  const PRICE = 3;
 
-/*
-   Esta cantidad será configurable
-   posteriormente desde el panel
-   de administrador.
-*/
+  // Más adelante este número será configurable
+  // desde el panel de administrador.
+  const TOTAL_NUMBERS = 10000;
 
-const TOTAL_NUMBERS = 10000;
+  // Números vendidos de ejemplo.
+  // Más adelante vendrán de la base de datos.
+  const soldNumbers = new Set([
+    3,
+    12,
+    25,
+    41,
+    72,
+    750
+  ]);
 
-
-/*
-   Números vendidos de demostración.
-
-   Después estos datos vendrán
-   automáticamente de la base de datos.
-*/
-
-let soldNumbers = [
-  3,
-  12,
-  25,
-  41,
-  72,
-  750
-];
+  let selectedNumbers = [];
 
 
-let selectedNumbers = [];
+  // ==========================
+  // CAMBIAR DE PANTALLA
+  // ==========================
 
+  function showScreen(screenId) {
 
-/* =====================================
-   BUSCAR NÚMERO
-===================================== */
+    document
+      .querySelectorAll('.screen')
+      .forEach(screen => {
+        screen.classList.remove('active');
+      });
 
-function searchNumber(){
+    document
+      .getElementById(screenId)
+      .classList.add('active');
 
-  const input =
-    document.getElementById("numberSearch").value;
-
-  const result =
-    document.getElementById("searchResult");
-
-  if(input === ""){
-
-    result.innerHTML = "";
-
-    return;
-  }
-
-  const number = parseInt(input);
-
-  if(number < 1 || number > TOTAL_NUMBERS){
-
-    result.innerHTML = `
-      <div class="result">
-        ❌ Ese número no existe.
-        <br>
-        Elige un número entre 1 y ${TOTAL_NUMBERS}.
-      </div>
-    `;
-
-    return;
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
   }
 
 
-  if(soldNumbers.includes(number)){
+  // ==========================
+  // BUSCAR NÚMERO
+  // ==========================
 
-    result.innerHTML = `
-      <div class="result">
-        <strong>Número ${number}</strong>
-        <br>
-        <span class="sold">
-        🔴 Ya está vendido
-        </span>
-      </div>
-    `;
+  function searchNumber() {
 
-    return;
+    const input =
+      document.getElementById('numberSearch');
+
+    const number =
+      parseInt(input.value);
+
+    const result =
+      document.getElementById('numberResult');
+
+    result.style.display = 'block';
+
+    if (
+      isNaN(number) ||
+      number < 1 ||
+      number > TOTAL_NUMBERS
+    ) {
+
+      result.className =
+        'number-result sold';
+
+      result.innerHTML =
+        '⚠️ Ingresa un número válido.';
+
+      return;
+    }
+
+    if (soldNumbers.has(number)) {
+
+      result.className =
+        'number-result sold';
+
+      result.innerHTML =
+        '🔴 El número ' +
+        number +
+        ' ya está vendido.';
+
+      return;
+    }
+
+    if (selectedNumbers.includes(number)) {
+
+      result.className =
+        'number-result sold';
+
+      result.innerHTML =
+        '🟡 El número ' +
+        number +
+        ' ya está seleccionado.';
+
+      return;
+    }
+
+    result.className =
+      'number-result available';
+
+    result.innerHTML =
+      '🟢 El número ' +
+      number +
+      ' está disponible.' +
+      '<br><button onclick="addNumber(' +
+      number +
+      ')">Agregar número</button>';
   }
 
 
-  if(selectedNumbers.includes(number)){
+  // ==========================
+  // AGREGAR NÚMERO
+  // ==========================
 
-    result.innerHTML = `
-      <div class="result">
-        <strong>Número ${number}</strong>
-        <br>
-        <span class="available">
-        🟢 Ya está seleccionado
-        </span>
-      </div>
-    `;
+  function addNumber(number) {
 
-    return;
+    if (
+      !selectedNumbers.includes(number) &&
+      !soldNumbers.has(number)
+    ) {
+
+      selectedNumbers.push(number);
+
+      updateSelectedNumbers();
+    }
+
+    document
+      .getElementById('numberResult')
+      .style.display = 'none';
+
+    document
+      .getElementById('numberSearch')
+      .value = '';
   }
 
 
-  result.innerHTML = `
-    <div class="result">
+  // ==========================
+  // NÚMEROS ALEATORIOS
+  // ==========================
 
-      <strong>Número ${number}</strong>
+  function randomNumbers() {
 
-      <br>
+    const quantity =
+      parseInt(
+        document.getElementById(
+          'randomQuantity'
+        ).value
+      );
 
-      <span class="available">
-      🟢 Disponible
-      </span>
+    if (
+      isNaN(quantity) ||
+      quantity < 1
+    ) {
 
-      <button
-      class="green"
-      onclick="addNumber(${number})"
-      >
-      AGREGAR NÚMERO
-      </button>
+      alert(
+        'Ingresa cuántos números quieres.'
+      );
 
-    </div>
-  `;
-}
+      return;
+    }
 
+    const available = [];
 
-/* =====================================
-   AGREGAR NÚMERO
-===================================== */
+    for (
+      let i = 1;
+      i <= TOTAL_NUMBERS;
+      i++
+    ) {
 
-function addNumber(number){
+      if (
+        !soldNumbers.has(i) &&
+        !selectedNumbers.includes(i)
+      ) {
 
-  if(soldNumbers.includes(number)){
+        available.push(i);
+      }
+    }
 
-    alert("Ese número ya está vendido.");
+    if (quantity > available.length) {
 
-    return;
+      alert(
+        'No hay suficientes números disponibles.'
+      );
+
+      return;
+    }
+
+    for (
+      let i = available.length - 1;
+      i > 0;
+      i--
+    ) {
+
+      const j =
+        Math.floor(
+          Math.random() * (i + 1)
+        );
+
+      [
+        available[i],
+        available[j]
+      ] =
+      [
+        available[j],
+        available[i]
+      ];
+    }
+
+    const randomSelected =
+      available.slice(0, quantity);
+
+    selectedNumbers =
+      selectedNumbers.concat(
+        randomSelected
+      );
+
+    updateSelectedNumbers();
   }
 
 
-  if(!selectedNumbers.includes(number)){
+  // ==========================
+  // ACTUALIZAR SELECCIÓN
+  // ==========================
 
-    selectedNumbers.push(number);
+  function updateSelectedNumbers() {
 
-    selectedNumbers.sort((a,b)=>a-b);
+    const container =
+      document.getElementById(
+        'selectedNumbers'
+      );
 
+    container.innerHTML = '';
+
+    selectedNumbers
+      .sort((a, b) => a - b)
+      .forEach(number => {
+
+        const chip =
+          document.createElement('div');
+
+        chip.className =
+          'number-chip';
+
+        chip.innerHTML =
+          number +
+          ' ✕';
+
+        chip.onclick = function() {
+
+          selectedNumbers =
+            selectedNumbers.filter(
+              n => n !== number
+            );
+
+          updateSelectedNumbers();
+        };
+
+        container.appendChild(chip);
+      });
+
+    const total =
+      selectedNumbers.length * PRICE;
+
+    document.getElementById(
+      'totalBox'
+    ).innerText =
+      'Total: $' +
+      total.toFixed(2);
   }
 
 
-  updateSummary();
+  // ==========================
+  // DATOS DEL PARTICIPANTE
+  // ==========================
 
-  document.getElementById("numberSearch").value = "";
+  function goToParticipant() {
 
-  document.getElementById("searchResult").innerHTML = "";
-}
+    if (selectedNumbers.length === 0) {
 
+      alert(
+        'Primero selecciona al menos un número.'
+      );
 
-/* =====================================
-   ELEGIR NÚMEROS AL AZAR
-===================================== */
+      return;
+    }
 
-function randomNumbers(){
-
-  const quantity =
-    parseInt(
-      document.getElementById("randomQuantity").value
-    );
-
-
-  if(!quantity || quantity < 1){
-
-    alert("Indica cuántos números quieres.");
-
-    return;
+    showScreen('screen2');
   }
 
 
-  const available = [];
+  // ==========================
+  // IR A PAGO
+  // ==========================
+
+  function goToPayment() {
+
+    const name =
+      document.getElementById(
+        'fullName'
+      ).value.trim();
+
+    const cedula =
+      document.getElementById(
+        'cedula'
+      ).value.trim();
+
+    const phone =
+      document.getElementById(
+        'phone'
+      ).value.trim();
+
+    const email =
+      document.getElementById(
+        'email'
+      ).value.trim();
+
+    if (
+      !name ||
+      !cedula ||
+      !phone ||
+      !email
+    ) {
+
+      alert(
+        'Completa todos los datos para continuar.'
+      );
+
+      return;
+    }
+
+    const total =
+      selectedNumbers.length * PRICE;
+
+    document.getElementById(
+      'paymentTotal'
+    ).innerText =
+      '$' +
+      total.toFixed(2);
+
+    showScreen('screen3');
+  }
 
 
-  for(let i=1; i<=TOTAL_NUMBERS; i++){
+  // ==========================
+  // MÉTODO DE PAGO
+  // ==========================
 
-    if(
-      !soldNumbers.includes(i) &&
-      !selectedNumbers.includes(i)
-    ){
+  function selectPayment(method) {
 
-      available.push(i);
+    const details =
+      document.getElementById(
+        'paymentDetails'
+      );
+
+    if (method === 'transfer') {
+
+      details.innerHTML = `
+
+        <div class="payment-details">
+
+          <h3>🏦 Transferencia bancaria</h3>
+
+          <p>
+            <strong>Banco:</strong>
+            Banco de ejemplo
+          </p>
+
+          <p>
+            <strong>Tipo de cuenta:</strong>
+            Cuenta corriente
+          </p>
+
+          <p>
+            <strong>Titular:</strong>
+            Nombre del titular
+          </p>
+
+          <p>
+            <strong>Número de cuenta:</strong>
+            0000000000
+          </p>
+
+          <p>
+            <strong>Cédula/RUC:</strong>
+            0000000000
+          </p>
+
+          <label>
+            Comprobante de transferencia
+          </label>
+
+          <input
+            type="file"
+            accept="image/*,.pdf"
+            id="transferProof"
+          >
+
+          <button
+            class="success-btn"
+            onclick="finishPayment('transfer')"
+          >
+            Enviar comprobante
+          </button>
+
+        </div>
+      `;
 
     }
 
+
+    else if (method === 'card') {
+
+      details.innerHTML = `
+
+        <div class="payment-details">
+
+          <h3>💳 Pago con tarjeta</h3>
+
+          <p>
+            El pago con tarjeta se conectará
+            posteriormente a una plataforma
+            de pago segura.
+          </p>
+
+          <button
+            onclick="finishPayment('card')"
+          >
+            Continuar
+          </button>
+
+        </div>
+      `;
+
+    }
+
+
+    else if (method === 'cash') {
+
+      details.innerHTML = `
+
+        <div class="payment-details">
+
+          <h3>💵 Pago en efectivo</h3>
+
+          <p>
+            Para coordinar el pago en efectivo,
+            comunícate por WhatsApp.
+          </p>
+
+          <p>
+            <strong>WhatsApp:</strong>
+            099 771 5958
+          </p>
+
+          <a
+            href="https://wa.me/593997715958"
+            target="_blank"
+            style="text-decoration:none;"
+          >
+
+            <button class="success-btn">
+              💬 Contactar por WhatsApp
+            </button>
+
+          </a>
+
+          <button
+            onclick="finishPayment('cash')"
+          >
+            Confirmar solicitud
+          </button>
+
+        </div>
+      `;
+    }
   }
 
 
-  if(quantity > available.length){
+  // ==========================
+  // FINALIZAR
+  // ==========================
 
-    alert("No hay suficientes números disponibles.");
+  function finishPayment(method) {
 
-    return;
+    const finalNumbers =
+      document.getElementById(
+        'finalNumbers'
+      );
+
+    finalNumbers.innerHTML = '';
+
+    selectedNumbers
+      .sort((a, b) => a - b)
+      .forEach(number => {
+
+        const chip =
+          document.createElement('div');
+
+        chip.className =
+          'number-chip';
+
+        chip.innerText =
+          number;
+
+        finalNumbers.appendChild(chip);
+      });
+
+    const total =
+      selectedNumbers.length * PRICE;
+
+    document.getElementById(
+      'finalTotal'
+    ).innerText =
+      '$' +
+      total.toFixed(2);
+
+    showScreen('screen4');
   }
 
 
-  /* Mezclar números */
+  // ==========================
+  // REINICIAR
+  // ==========================
 
-  available.sort(() => Math.random() - 0.5);
+  function restart() {
 
+    selectedNumbers = [];
 
-  const chosen =
-    available.slice(0,quantity);
+    document.getElementById(
+      'numberSearch'
+    ).value = '';
 
+    document.getElementById(
+      'randomQuantity'
+    ).value = '';
 
-  selectedNumbers =
-    selectedNumbers.concat(chosen);
+    document.getElementById(
+      'fullName'
+    ).value = '';
 
+    document.getElementById(
+      'cedula'
+    ).value = '';
 
-  selectedNumbers.sort((a,b)=>a-b);
+    document.getElementById(
+      'phone'
+    ).value = '';
 
+    document.getElementById(
+      'email'
+    ).value = '';
 
-  updateSummary();
+    updateSelectedNumbers();
 
-}
+    document.getElementById(
+      'paymentDetails'
+    ).innerHTML = '';
 
-
-/* =====================================
-   ACTUALIZAR RESUMEN
-===================================== */
-
-function updateSummary(){
-
-  const box =
-    document.getElementById("selectedNumbers");
-
-
-  if(selectedNumbers.length === 0){
-
-    box.innerHTML =
-      "Aún no has seleccionado números.";
-
-  }else{
-
-    box.innerHTML =
-      selectedNumbers.map(n => `
-        <span class="selected-number">
-          ${String(n).padStart(4,"0")}
-        </span>
-      `).join("");
-
+    showScreen('screen1');
   }
-
-
-  document.getElementById("quantity")
-    .textContent =
-    selectedNumbers.length;
-
-
-  document.getElementById("total")
-    .textContent =
-    (selectedNumbers.length * PRICE)
-    .toFixed(2);
-
-
-  document.getElementById("availableCount")
-    .textContent =
-    (
-      TOTAL_NUMBERS -
-      soldNumbers.length
-    ).toLocaleString();
-
-}
-
-
-/* =====================================
-   CAMBIAR PANTALLA
-===================================== */
-
-function showScreen(screen){
-
-  for(let i=1;i<=4;i++){
-
-    document
-      .getElementById("screen"+i)
-      .classList.add("hidden");
-
-  }
-
-
-  document
-    .getElementById("screen"+screen)
-    .classList.remove("hidden");
-
-
-  window.scrollTo(0,0);
-}
-
-
-/* =====================================
-   IR A DATOS
-===================================== */
-
-function goToForm(){
-
-  if(selectedNumbers.length === 0){
-
-    alert("Selecciona al menos un número.");
-
-    return;
-  }
-
-
-  document.getElementById("formNumbers")
-    .innerHTML =
-    selectedNumbers.map(n =>
-      String(n).padStart(4,"0")
-    ).join(", ");
-
-
-  document.getElementById("formTotal")
-    .textContent =
-    (selectedNumbers.length * PRICE)
-    .toFixed(2);
-
-
-  showScreen(2);
-}
-
-
-/* =====================================
-   IR A PAGO
-===================================== */
-
-function goToPayment(){
-
-  const name =
-    document.getElementById("name")
-    .value.trim();
-
-
-  const cedula =
-    document.getElementById("cedula")
-    .value.trim();
-
-
-  const whatsapp =
-    document.getElementById("whatsapp")
-    .value.trim();
-
-
-  const email =
-    document.getElementById("email")
-    .value.trim();
-
-
-  if(!name || !cedula || !whatsapp || !email){
-
-    alert("Completa todos los datos.");
-
-    return;
-  }
-
-
-  if(cedula.length !== 10){
-
-    alert("La cédula debe tener 10 dígitos.");
-
-    return;
-  }
-
-
-  if(!email.includes("@")){
-
-    alert("Ingresa un correo válido.");
-
-    return;
-  }
-
-
-  document.getElementById("paymentNumbers")
-    .innerHTML =
-    selectedNumbers.map(n =>
-      String(n).padStart(4,"0")
-    ).join(", ");
-
-
-  document.getElementById("paymentTotal")
-    .textContent =
-    (selectedNumbers.length * PRICE)
-    .toFixed(2);
-
-
-  showScreen(3);
-}
-
-
-/* =====================================
-   MOSTRAR TRANSFERENCIA
-===================================== */
-
-function showTransfer(){
-
-  hidePayments();
-
-  document.getElementById("transferData")
-    .style.display = "block";
-
-}
-
-
-/* =====================================
-   MOSTRAR TARJETA
-===================================== */
-
-function showCard(){
-
-  hidePayments();
-
-  document.getElementById("cardData")
-    .style.display = "block";
-
-}
-
-
-/* =====================================
-   MOSTRAR EFECTIVO
-===================================== */
-
-function showCash(){
-
-  hidePayments();
-
-  document.getElementById("cashData")
-    .style.display = "block";
-
-}
-
-
-/* =====================================
-   OCULTAR PAGOS
-===================================== */
-
-function hidePayments(){
-
-  document.getElementById("transferData")
-    .style.display = "none";
-
-  document.getElementById("cardData")
-    .style.display = "none";
-
-  document.getElementById("cashData")
-    .style.display = "none";
-
-}
-
-
-/* =====================================
-   TRANSFERENCIA
-===================================== */
-
-function finishTransfer(){
-
-  const proof =
-    document.getElementById("proof")
-    .files[0];
-
-
-  if(!proof){
-
-    alert(
-      "Selecciona el comprobante de transferencia."
-    );
-
-    return;
-  }
-
-
-  finishPurchase();
-
-}
-
-
-/* =====================================
-   TARJETA
-===================================== */
-
-function cardPayment(){
-
-  alert(
-    "La pasarela de pago con tarjeta se conectará en la siguiente etapa."
-  );
-
-}
-
-
-/* =====================================
-   FINALIZAR
-===================================== */
-
-function finishPurchase(){
-
-  document.getElementById("successNumbers")
-    .innerHTML =
-    selectedNumbers.map(n =>
-      String(n).padStart(4,"0")
-    ).join(", ");
-
-
-  document.getElementById("successTotal")
-    .textContent =
-    (selectedNumbers.length * PRICE)
-    .toFixed(2);
-
-
-  showScreen(4);
-
-}
-
-
-/* =====================================
-   INICIO
-===================================== */
-
-updateSummary();
 
 </script>
 
