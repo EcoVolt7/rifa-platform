@@ -825,13 +825,18 @@ const TOTAL_NUMBERS = 10000;
 let soldNumbers = [];
   async function loadSoldNumbers() {
   const { data, error } = await db
-    .from('compras')
-    .select('numero_id');
+    .from('numeros')
+    .select('numero')
+    .eq('rifa_id', 1)
+    .eq('estado', 'vendido');
 
   if (error) {
     console.error('Error cargando números vendidos:', error);
     return;
   }
+
+  soldNumbers = data.map(item => item.numero);
+}
 
   const numeroIds = data.map(compra => compra.numero_id);
 
