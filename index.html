@@ -843,22 +843,7 @@ let soldNumbers = [];
   soldNumbers = data.map(item => item.numero);
 }
 
-  const numeroIds = data.map(compra => compra.numero_id);
-
-  const { data: numeros, error: errorNumeros } = await db
-    .from('numeros')
-    .select('id, numero')
-    .in('id', numeroIds);
-
-  if (errorNumeros) {
-    console.error('Error cargando números:', errorNumeros);
-    return;
-  }
-
-  soldNumbers = numeros.map(item => item.numero);
-}
-
-
+ 
 /* NUMEROS SELECCIONADOS */
 
 let selectedNumbers = [];
