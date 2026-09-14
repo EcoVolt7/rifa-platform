@@ -822,14 +822,31 @@ const TOTAL_NUMBERS = 10000;
 
 /* NUMEROS DEMO VENDIDOS */
 
-const soldNumbers = [
-  3,
-  12,
-  25,
-  41,
-  72,
-  750
-];
+let soldNumbers = [];
+  async function loadSoldNumbers() {
+  const { data, error } = await db
+    .from('compras')
+    .select('numero_id');
+
+  if (error) {
+    console.error('Error cargando números vendidos:', error);
+    return;
+  }
+
+  const numeroIds = data.map(compra => compra.numero_id);
+
+  const { data: numeros, error: errorNumeros } = await db
+    .from('numeros')
+    .select('id, numero')
+    .in('id', numeroIds);
+
+  if (errorNumeros) {
+    console.error('Error cargando números:', errorNumeros);
+    return;
+  }
+
+  soldNumbers = numeros.map(item => item.numero);
+}
 
 
 /* NUMEROS SELECCIONADOS */
@@ -1346,6 +1363,7 @@ function restart(){
 
 
   showScreen(1);
+  loadSoldNumbers();
 }
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </script>
