@@ -1347,8 +1347,12 @@ function restart(){
 
   showScreen(1);
 }
-
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </script>
+const SUPABASE_URL = 'https://tveigbcascwgvdtpovif.supabase.co/rest/v1/';
+const SUPABASE_KEY = 'sb_publishable_bikgzeAxvmZ8NzYfJUszRQ_Zy9H2AeS';
 
+const { createClient } = supabase;
+const db = createClient(SUPABASE_URL, SUPABASE_KEY);
 </body>
 </html>
