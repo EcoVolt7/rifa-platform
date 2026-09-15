@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>EcoVolt - Gran Sorteo</title>
+<title>A.E.S. - Siembra con propósito</title>
 
 <style>
 
@@ -16,14 +16,17 @@
 
 body{
   font-family:Arial,Helvetica,sans-serif;
-  background:#f4d900;
+  background:
+    radial-gradient(circle at 15% 15%, rgba(255,120,0,.45), transparent 30%),
+    radial-gradient(circle at 85% 80%, rgba(255,70,0,.35), transparent 30%),
+    linear-gradient(135deg,#050505,#151515 50%,#000);
   min-height:100vh;
   color:#111;
   overflow-x:hidden;
 }
 
 /* =========================
-   MARCA DE AGUA
+   MARCA DE AGUA A.E.S.
 ========================= */
 
 .watermark{
@@ -41,13 +44,13 @@ body{
 
   transform:rotate(-20deg) scale(1.15);
 
-  opacity:.10;
+  opacity:.09;
 }
 
 .watermark span{
-  font-size:48px;
+  font-size:52px;
   font-weight:900;
-  color:#555;
+  color:#ff7a00;
   white-space:nowrap;
   letter-spacing:-2px;
 }
@@ -68,36 +71,25 @@ body{
 }
 
 /* =========================
-   LOGO ECOVOLT
+   LOGO A.E.S.
 ========================= */
 
 .logo{
   text-align:center;
-
-  font-size:52px;
-  font-weight:1000;
-
-  letter-spacing:-5px;
-
-  margin:5px 0 25px;
-
-  color:#fff;
-
-  text-shadow:
-    2px 2px 0 #777,
-    4px 4px 0 #555,
-    6px 6px 0 #222,
-    0 8px 12px rgba(0,0,0,.35);
+  margin:5px 0 20px;
 }
 
-.logo .eco{
-  color:#f4d900;
-  -webkit-text-stroke:2px #111;
-}
+.logo-aes{
+  width:180px;
+  max-width:65%;
+  height:auto;
 
-.logo .volt{
-  color:#eee;
-  -webkit-text-stroke:2px #111;
+  display:block;
+  margin:0 auto;
+
+  filter:
+    drop-shadow(0 6px 5px rgba(0,0,0,.55))
+    drop-shadow(0 0 18px rgba(255,100,0,.35));
 }
 
 /* =========================
@@ -112,7 +104,7 @@ body{
   padding:22px;
 
   box-shadow:
-    0 10px 25px rgba(0,0,0,.25);
+    0 10px 30px rgba(0,0,0,.45);
 
   margin-bottom:20px;
 }
@@ -125,12 +117,14 @@ h1{
   text-align:center;
   font-size:32px;
   margin-bottom:8px;
+  color:#111;
 }
 
 .subtitle{
   text-align:center;
   font-size:18px;
   margin-bottom:18px;
+  font-weight:600;
 }
 
 .price{
@@ -138,6 +132,7 @@ h1{
   font-size:24px;
   font-weight:bold;
   margin-bottom:25px;
+  color:#e65f00;
 }
 
 /* =========================
@@ -180,6 +175,10 @@ button{
 
   font-size:16px;
   font-weight:bold;
+}
+
+button:hover{
+  background:#e65f00;
 }
 
 button:active{
@@ -400,12 +399,13 @@ input[type="file"]{
 
   padding-top:18px;
 
-  border-top:2px solid rgba(0,0,0,.25);
+  border-top:2px solid rgba(255,255,255,.25);
 }
 
 .social-title{
   font-weight:bold;
   margin-bottom:12px;
+  color:#fff;
 }
 
 .social a{
@@ -426,6 +426,10 @@ input[type="file"]{
   font-size:14px;
 
   font-weight:bold;
+}
+
+.social a:hover{
+  background:#e65f00;
 }
 
 /* =========================
@@ -450,8 +454,8 @@ input[type="file"]{
     padding:15px 12px 30px;
   }
 
-  .logo{
-    font-size:45px;
+  .logo-aes{
+    width:150px;
   }
 
   h1{
@@ -484,29 +488,29 @@ input[type="file"]{
 
 <div class="watermark">
 
-  <span>EcoVolt</span>
-  <span>EcoVolt</span>
-  <span>EcoVolt</span>
+  <span>A.E.S.</span>
+  <span>A.E.S.</span>
+  <span>A.E.S.</span>
 
-  <span>EcoVolt</span>
-  <span>EcoVolt</span>
-  <span>EcoVolt</span>
+  <span>A.E.S.</span>
+  <span>A.E.S.</span>
+  <span>A.E.S.</span>
 
-  <span>EcoVolt</span>
-  <span>EcoVolt</span>
-  <span>EcoVolt</span>
+  <span>A.E.S.</span>
+  <span>A.E.S.</span>
+  <span>A.E.S.</span>
 
-  <span>EcoVolt</span>
-  <span>EcoVolt</span>
-  <span>EcoVolt</span>
+  <span>A.E.S.</span>
+  <span>A.E.S.</span>
+  <span>A.E.S.</span>
 
-  <span>EcoVolt</span>
-  <span>EcoVolt</span>
-  <span>EcoVolt</span>
+  <span>A.E.S.</span>
+  <span>A.E.S.</span>
+  <span>A.E.S.</span>
 
-  <span>EcoVolt</span>
-  <span>EcoVolt</span>
-  <span>EcoVolt</span>
+  <span>A.E.S.</span>
+  <span>A.E.S.</span>
+  <span>A.E.S.</span>
 
 </div>
 
@@ -518,7 +522,13 @@ input[type="file"]{
 ========================= -->
 
 <div class="logo">
-  <span class="eco">Eco</span><span class="volt">Volt</span>
+
+  <img
+    src="logo-aes.png"
+    alt="A.E.S."
+    class="logo-aes"
+  >
+
 </div>
 
 
@@ -530,7 +540,7 @@ input[type="file"]{
 
   <div class="card">
 
-    <h1>Gran Sorteo</h1>
+    <h1>Siembra con propósito</h1>
 
     <div class="subtitle">
       Participa y gana una moto ecológica
@@ -553,6 +563,8 @@ input[type="file"]{
         type="number"
         id="searchInput"
         placeholder="Ej: 750"
+        min="1"
+        max="2000"
       >
 
       <button onclick="searchNumber()">
@@ -576,6 +588,7 @@ input[type="file"]{
         type="number"
         id="randomQuantity"
         min="1"
+        max="100"
         placeholder="¿Cuántos números?"
       >
 
@@ -807,6 +820,8 @@ input[type="file"]{
 
 
 </div>
+
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
@@ -816,35 +831,76 @@ input[type="file"]{
 ========================= */
 
 const PRICE = 3;
-const SUPABASE_URL = 'https://tveigbcascwgvdtpovif.supabase.co'
-const SUPABASE_KEY = 'sb_publishable_bikgzeAxvmZ8NzYfJUszRQ_Zy9H2AeS';
+
+const SUPABASE_URL =
+  'https://tveigbcascwgvdtpovif.supabase.co';
+
+const SUPABASE_KEY =
+  'sb_publishable_bikgzeAxvmZ8NzYfJUszRQ_Zy9H2AeS';
 
 const { createClient } = supabase;
-const db = createClient(SUPABASE_URL, SUPABASE_KEY);
-  console.log("SUPABASE FUNCIONANDO");
-const TOTAL_NUMBERS = 10000;
+
+const db =
+  createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+  );
 
 
-/* NUMEROS DEMO VENDIDOS */
+console.log("SUPABASE FUNCIONANDO");
+
+
+/* =========================
+   TOTAL DE NUMEROS
+========================= */
+
+const TOTAL_NUMBERS = 2000;
+
+
+/* =========================
+   NUMEROS VENDIDOS
+========================= */
 
 let soldNumbers = [];
-  async function loadSoldNumbers() {
+
+
+async function loadSoldNumbers(){
+
   const { data, error } = await db
     .from('numeros')
     .select('numero')
     .eq('rifa_id', 1)
     .eq('estado', 'vendido');
 
-  if (error) {
-    console.error('Error cargando números vendidos:', error);
+
+  if(error){
+
+    console.error(
+      'Error cargando números vendidos:',
+      error
+    );
+
     return;
   }
 
-  soldNumbers = data.map(item => item.numero);
+
+  soldNumbers =
+    data.map(
+      item => item.numero
+    );
+
+
+  console.log(
+    "Números vendidos cargados:",
+    soldNumbers
+  );
+
 }
 
- 
-/* NUMEROS SELECCIONADOS */
+
+/* =========================
+   NUMEROS SELECCIONADOS
+========================= */
 
 let selectedNumbers = [];
 
@@ -855,19 +911,28 @@ let selectedNumbers = [];
 
 function showScreen(number){
 
-  document.querySelectorAll(".screen")
+  document
+    .querySelectorAll(".screen")
     .forEach(screen => {
+
       screen.classList.remove("active");
+
     });
+
 
   document
     .getElementById("screen" + number)
     .classList.add("active");
 
+
   window.scrollTo({
+
     top:0,
+
     behavior:"smooth"
+
   });
+
 }
 
 
@@ -878,10 +943,16 @@ function showScreen(number){
 function searchNumber(){
 
   const input =
-    document.getElementById("searchInput");
+    document.getElementById(
+      "searchInput"
+    );
+
 
   const result =
-    document.getElementById("searchResult");
+    document.getElementById(
+      "searchResult"
+    );
+
 
   const number =
     parseInt(input.value);
@@ -893,52 +964,71 @@ function searchNumber(){
     number > TOTAL_NUMBERS
   ){
 
-    result.style.display = "block";
+    result.style.display =
+      "block";
+
 
     result.className =
       "result sold";
 
+
     result.innerText =
-      "Ingresa un número válido.";
+      "Ingresa un número válido del 1 al 2000.";
+
 
     return;
   }
 
 
-  if(soldNumbers.includes(number)){
+  if(
+    soldNumbers.includes(number)
+  ){
 
-    result.style.display = "block";
+    result.style.display =
+      "block";
+
 
     result.className =
       "result sold";
+
 
     result.innerText =
       "🔴 El número " +
       number +
       " ya está vendido.";
 
+
     return;
   }
 
 
-  if(selectedNumbers.includes(number)){
+  if(
+    selectedNumbers.includes(number)
+  ){
 
-    result.style.display = "block";
+    result.style.display =
+      "block";
+
 
     result.className =
       "result sold";
 
+
     result.innerText =
       "Ese número ya está seleccionado.";
+
 
     return;
   }
 
 
-  result.style.display = "block";
+  result.style.display =
+    "block";
+
 
   result.className =
     "result available";
+
 
   result.innerHTML =
     "🟢 Número " +
@@ -948,6 +1038,7 @@ function searchNumber(){
     "<button onclick=\"addNumber(" +
     number +
     ")\">Agregar número</button>";
+
 }
 
 
@@ -961,23 +1052,28 @@ function addNumber(number){
     soldNumbers.includes(number) ||
     selectedNumbers.includes(number)
   ){
+
     return;
+
   }
 
 
   selectedNumbers.push(number);
+
 
   updateSelectedNumbers();
 
 
   document.getElementById(
     "searchResult"
-  ).style.display = "none";
+  ).style.display =
+    "none";
 
 
   document.getElementById(
     "searchInput"
   ).value = "";
+
 }
 
 
@@ -1023,7 +1119,7 @@ function randomNumbers(){
 
   while(
     selectedNumbers.length <
-    quantity &&
+      quantity &&
     attempts < 10000
   ){
 
@@ -1045,10 +1141,12 @@ function randomNumbers(){
 
 
     attempts++;
+
   }
 
 
   updateSelectedNumbers();
+
 }
 
 
@@ -1072,26 +1170,36 @@ function updateSelectedNumbers(){
     .forEach(number => {
 
       const div =
-        document.createElement("div");
+        document.createElement(
+          "div"
+        );
 
-      div.className = "number";
+
+      div.className =
+        "number";
+
 
       div.innerText =
         "#" + number;
 
-      container.appendChild(div);
+
+      container.appendChild(
+        div
+      );
 
     });
 
 
   const total =
-    selectedNumbers.length * PRICE;
+    selectedNumbers.length *
+    PRICE;
 
 
   document.getElementById(
     "total"
   ).innerText =
     total.toFixed(2);
+
 }
 
 
@@ -1101,7 +1209,9 @@ function updateSelectedNumbers(){
 
 function goToParticipant(){
 
-  if(selectedNumbers.length === 0){
+  if(
+    selectedNumbers.length === 0
+  ){
 
     alert(
       "Primero selecciona al menos un número."
@@ -1112,6 +1222,7 @@ function goToParticipant(){
 
 
   showScreen(2);
+
 }
 
 
@@ -1122,16 +1233,27 @@ function goToParticipant(){
 function goToPayment(){
 
   const name =
-    document.getElementById("name").value.trim();
+    document.getElementById(
+      "name"
+    ).value.trim();
+
 
   const cedula =
-    document.getElementById("cedula").value.trim();
+    document.getElementById(
+      "cedula"
+    ).value.trim();
+
 
   const whatsapp =
-    document.getElementById("whatsapp").value.trim();
+    document.getElementById(
+      "whatsapp"
+    ).value.trim();
+
 
   const email =
-    document.getElementById("email").value.trim();
+    document.getElementById(
+      "email"
+    ).value.trim();
 
 
   if(
@@ -1150,6 +1272,7 @@ function goToPayment(){
 
 
   showScreen(3);
+
 }
 
 
@@ -1165,13 +1288,17 @@ function selectPayment(method){
     );
 
 
-  if(method === "transfer"){
+  if(
+    method === "transfer"
+  ){
 
     info.innerHTML = `
 
       <div class="payment-info">
 
-        <strong>Datos para transferencia</strong>
+        <strong>
+          Datos para transferencia
+        </strong>
 
         Banco de ejemplo<br>
 
@@ -1209,13 +1336,17 @@ function selectPayment(method){
   }
 
 
-  if(method === "card"){
+  if(
+    method === "card"
+  ){
 
     info.innerHTML = `
 
       <div class="payment-info">
 
-        <strong>Pago con tarjeta</strong>
+        <strong>
+          Pago con tarjeta
+        </strong>
 
         <br>
 
@@ -1237,13 +1368,17 @@ function selectPayment(method){
   }
 
 
-  if(method === "cash"){
+  if(
+    method === "cash"
+  ){
 
     info.innerHTML = `
 
       <div class="payment-info">
 
-        <strong>Pago en efectivo</strong>
+        <strong>
+          Pago en efectivo
+        </strong>
 
         <br>
 
@@ -1304,14 +1439,22 @@ function finishPayment(method){
     .forEach(number => {
 
       const div =
-        document.createElement("div");
+        document.createElement(
+          "div"
+        );
 
-      div.className = "number";
+
+      div.className =
+        "number";
+
 
       div.innerText =
         "#" + number;
 
-      finalNumbers.appendChild(div);
+
+      finalNumbers.appendChild(
+        div
+      );
 
     });
 
@@ -1326,6 +1469,7 @@ function finishPayment(method){
 
 
   showScreen(4);
+
 }
 
 
@@ -1337,6 +1481,7 @@ function restart(){
 
   selectedNumbers = [];
 
+
   updateSelectedNumbers();
 
 
@@ -1344,22 +1489,40 @@ function restart(){
     "name"
   ).value = "";
 
+
   document.getElementById(
     "cedula"
   ).value = "";
 
+
   document.getElementById(
     "whatsapp"
   ).value = "";
+
 
   document.getElementById(
     "email"
   ).value = "";
 
 
+  document.getElementById(
+    "randomQuantity"
+  ).value = "";
+
+
   showScreen(1);
+
+
   loadSoldNumbers();
+
 }
+
+
+/* =========================
+   CARGAR AL INICIAR
+========================= */
+
+loadSoldNumbers();
 
 </script>
 
