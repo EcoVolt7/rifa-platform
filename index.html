@@ -1447,29 +1447,54 @@ async function finishPayment(method){
 
   try {
 
-    for(const number of selectedNumbers){
+    /*
+      Una sola llamada a Supabase.
+      Funciona igual para 1, 10, 100 o más números.
+    */
 
-      const { data, error } = await db.rpc(
-        "comprar_numero",
-        {
-          p_rifa_id: 1,
-          p_numero_id: number,
-          p_nombre: name,
-          p_cedula: cedula,
-          p_telefono: whatsapp,
-          p_correo: email,
-          p_metodo_pago: method
-        }
+    const { data, error } = await db.rpc(
+      "comprar_numeros",
+      {
+        p_rifa_id: 1,
+        p_numeros: selectedNumbers,
+        p_nombre: name,
+        p_telefono: whatsapp,
+        p_correo: email,
+        p_cedula: cedula,
+        p_metodo_pago: method
+      }
+    );
+
+    if(error){
+      throw new Error(
+        "No se pudo procesar la compra."
+      );
+    }
+
+    /*
+      Si alguno de los números ya fue vendido,
+      Supabase cancela toda la operación.
+    */
+
+    if(!data.success){
+
+      const ocupados =
+        data.ocupados || [];
+
+      alert(
+        "Estos números ya no están disponibles: " +
+        ocupados.join(", ") +
+        ". Por favor selecciona otros números."
       );
 
-      if(error){
-        throw new Error(
-          "El número " + number +
-          " ya no está disponible."
-        );
-      }
+      await loadSoldNumbers();
 
+      return;
     }
+
+    /*
+      Compra realizada correctamente.
+    */
 
     const finalNumbers =
       document.getElementById("finalNumbers");
@@ -1501,6 +1526,8 @@ async function finishPayment(method){
     showScreen(4);
 
   } catch(error){
+
+    console.error(error);
 
     alert(error.message);
 
