@@ -1294,7 +1294,7 @@ function selectPayment(method){
         </strong>
 
         Banco de ejemplo<br>
-
+        
         Cuenta corriente<br>
 
         Titular: Nombre del titular<br>
@@ -1416,55 +1416,99 @@ function selectPayment(method){
    FINALIZAR
 ========================= */
 
-function finishPayment(method){
+async function finishPayment(method){
 
-  const finalNumbers =
-    document.getElementById(
-      "finalNumbers"
-    );
+  const name =
+    document.getElementById("name").value.trim();
 
+  const cedula =
+    document.getElementById("cedula").value.trim();
 
-  finalNumbers.innerHTML = "";
+  const whatsapp =
+    document.getElementById("whatsapp").value.trim();
 
+  const email =
+    document.getElementById("email").value.trim();
 
-  selectedNumbers
-    .sort((a,b)=>a-b)
-    .forEach(number => {
+  if(
+    !name ||
+    !cedula ||
+    !whatsapp ||
+    !email
+  ){
+    alert("Completa todos tus datos.");
+    return;
+  }
 
-      const div =
-        document.createElement(
-          "div"
-        );
+  if(selectedNumbers.length === 0){
+    alert("No has seleccionado ningún número.");
+    return;
+  }
 
+  try {
 
-      div.className =
-        "number";
+    for(const number of selectedNumbers){
 
-
-      div.innerText =
-        "#" + number;
-
-
-      finalNumbers.appendChild(
-        div
+      const { data, error } = await db.rpc(
+        "comprar_numero",
+        {
+          p_rifa_id: 1,
+          p_numero_id: number,
+          p_nombre: name,
+          p_cedula: cedula,
+          p_telefono: whatsapp,
+          p_correo: email,
+          p_metodo_pago: method
+        }
       );
 
-    });
+      if(error){
+        throw new Error(
+          "El número " + number +
+          " ya no está disponible."
+        );
+      }
 
+    }
 
-  document.getElementById(
-    "finalTotal"
-  ).innerText =
-    (
-      selectedNumbers.length *
-      PRICE
-    ).toFixed(2);
+    const finalNumbers =
+      document.getElementById("finalNumbers");
 
+    finalNumbers.innerHTML = "";
 
-  showScreen(4);
+    selectedNumbers
+      .sort((a,b)=>a-b)
+      .forEach(number => {
+
+        const div =
+          document.createElement("div");
+
+        div.className = "number";
+
+        div.innerText = "#" + number;
+
+        finalNumbers.appendChild(div);
+
+      });
+
+    document.getElementById("finalTotal").innerText =
+      (
+        selectedNumbers.length * PRICE
+      ).toFixed(2);
+
+    await loadSoldNumbers();
+
+    showScreen(4);
+
+  } catch(error){
+
+    alert(error.message);
+
+    await loadSoldNumbers();
+
+  }
 
 }
-
 
 /* =========================
    REINICIAR
