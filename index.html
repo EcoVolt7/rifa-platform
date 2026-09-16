@@ -1109,7 +1109,7 @@ function addNumber(number){
    NUMEROS ALEATORIOS
 ========================= */
 
-function randomNumbers(){
+async function randomNumbers(){
 
   const quantity =
     parseInt(
@@ -1144,41 +1144,93 @@ function randomNumbers(){
   }
 
 
-  let attempts = 0;
+  try{
+
+    const { data, error } =
+      await db
+        .from("numeros")
+        .select("numero, estado")
+        .eq("rifa_id", 1)
+        .eq("estado", "disponible");
 
 
-  while(
-    selectedNumbers.length <
-      quantity &&
-    attempts < 10000
-  ){
+    if(error){
 
-    const random =
-      Math.floor(
-        Math.random() *
-        TOTAL_NUMBERS
-      ) + 1;
+      console.error(error);
 
+      alert(
+        "No se pudieron consultar los números disponibles."
+      );
 
-    if(
-      !soldNumbers.includes(random) &&
-      !selectedNumbers.includes(random)
-    ){
-
-      selectedNumbers.push(random);
+      return;
 
     }
 
 
-    attempts++;
+    const disponibles =
+      (data || [])
+        .map(
+          item => Number(item.numero)
+        )
+        .filter(
+          numero =>
+            !soldNumbers.includes(numero) &&
+            !selectedNumbers.includes(numero)
+        );
+
+
+    if(
+      disponibles.length < quantity
+    ){
+
+      alert(
+        `Solo hay ${disponibles.length} números disponibles para seleccionar.`
+      );
+
+      return;
+
+    }
+
+
+    while(
+      selectedNumbers.length <
+      quantity
+    ){
+
+      const index =
+        Math.floor(
+          Math.random() *
+          disponibles.length
+        );
+
+
+      const numero =
+        disponibles.splice(
+          index,
+          1
+        )[0];
+
+
+      selectedNumbers.push(
+        numero
+      );
+
+    }
+
+
+    updateSelectedNumbers();
+
+  }catch(error){
+
+    console.error(error);
+
+    alert(
+      "Ocurrió un error al buscar números disponibles."
+    );
 
   }
 
-
-  updateSelectedNumbers();
-
 }
-
 
 /* =========================
    ACTUALIZAR SELECCIONADOS
