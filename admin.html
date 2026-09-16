@@ -143,12 +143,18 @@ async function cargarCompras(){
   contenedor.innerHTML =
     "Cargando compras...";
 
+
+  // ==========================================
+  // CARGAR COMPRAS PENDIENTES
+  // ==========================================
+
   const { data, error } =
     await db
       .from("compras")
       .select("*")
       .eq("estado_pago", "pendiente")
       .order("created_at", { ascending: false });
+
 
   if(error){
 
@@ -161,7 +167,9 @@ async function cargarCompras(){
 
   }
 
+
   console.log("COMPRAS:", data);
+
 
   if(!data || data.length === 0){
 
@@ -172,26 +180,24 @@ async function cargarCompras(){
 
   }
 
-  const numeroIds =
-    data
-      .map(compra => compra.numero_id)
-      .filter(
-        id => id !== null && id !== undefined
-      );
 
-  console.log("numeroIds:", numeroIds);
+  // ==========================================
+  // OBTENER LOS NÚMEROS DE CADA COMPRA
+  // ==========================================
 
-const { data: numerosData, error: numerosError } =
-  await db
-    .from("numeros")
-    .select("id, numero")
-    .in("id", numeroIds);
+  const compraIds =
+    data.map(compra => compra.id);
 
-console.log("numeroIds:", numeroIds);
-console.log("numerosData:", numerosData);
-console.log("numerosError:", numerosError);
 
-  console.log("numerosData:", numerosData);
+  const { data: numerosData, error: numerosError } =
+    await db
+      .from("numeros")
+      .select("id, numero, compra_id")
+      .in("compra_id", compraIds);
+
+
+  console.log("NUMEROS DE LAS COMPRAS:", numerosData);
+
 
   if(numerosError){
 
@@ -207,26 +213,31 @@ console.log("numerosError:", numerosError);
 
   }
 
+
+  // ==========================================
+  // CREAR UNA TARJETA POR CADA COMPRA
+  // ==========================================
+
   data.forEach(compra => {
 
-    const numeroEncontrado =
-      (numerosData || []).find(
-        numero =>
-          Number(numero.id) ===
-          Number(compra.numero_id)
-      );
 
-    console.log(
-      "Compra:",
-      compra.id,
-      "numero_id:",
-      compra.numero_id,
-      "numero encontrado:",
-      numeroEncontrado
-    );
+    // Buscar todos los números pertenecientes
+    // a esta compra
+
+    const numerosCompra =
+      (numerosData || [])
+        .filter(
+          numero =>
+            Number(numero.compra_id) ===
+            Number(compra.id)
+        )
+        .map(numero => numero.numero)
+        .sort((a,b) => a - b);
+
 
     const div =
       document.createElement("div");
+
 
     div.style.border =
       "1px solid #ccc";
@@ -240,69 +251,87 @@ console.log("numerosError:", numerosError);
     div.style.borderRadius =
       "8px";
 
+
+    // ==========================================
+    // MOSTRAR TODOS LOS NÚMEROS
+    // ==========================================
+
+    const numerosTexto =
+      numerosCompra.length > 0
+        ? numerosCompra
+            .map(numero => "#" + numero)
+            .join(", ")
+        : "No encontrado";
+
+
     div.innerHTML = `
 
       <strong>Compra #${compra.id}</strong>
 
       <br><br>
 
-      <strong>Número:</strong>
-${
-  numeroEncontrado?.numero ??
-  "No encontrado"
-}
+      <strong>Números:</strong>
+      ${numerosTexto}
 
-<br><br>
+      <br><br>
 
-<strong>Valor:</strong>
-${
-  Number(compra.valor || 0).toFixed(2)
-} USD
+      <strong>Cantidad:</strong>
+      ${compra.cantidad || numerosCompra.length}
+      números
 
-<br><br>
+      <br><br>
 
-<strong>Cliente:</strong>
-      ${compra.nombre_cliente}
+      <strong>Valor:</strong>
+      $${Number(compra.valor || 0).toFixed(2)} USD
+
+      <br><br>
+
+      <strong>Cliente:</strong>
+      ${compra.nombre_cliente || ""}
 
       <br>
 
       <strong>Cédula:</strong>
-      ${compra.cedula_cliente}
+      ${compra.cedula_cliente || ""}
 
       <br>
 
       <strong>Teléfono:</strong>
-      ${compra.telefono_cliente}
+      ${compra.telefono_cliente || ""}
 
       <br>
 
       <strong>Correo:</strong>
-      ${compra.correo_cliente}
+      ${compra.correo_cliente || ""}
 
       <br>
 
       <strong>Método:</strong>
-      ${compra.metodo_pago}
+      ${compra.metodo_pago || ""}
 
       <br>
 
       <strong>Estado:</strong>
-      ${compra.estado_pago}
+      ${compra.estado_pago || ""}
 
       <br>
 
       <strong>Fecha:</strong>
-      ${new Date(
-        compra.created_at
-      ).toLocaleString()}
+      ${
+        new Date(
+          compra.created_at
+        ).toLocaleString()
+      }
 
       <br><br>
 
-      <button onclick="confirmarPago(${compra.id})">
+      <button
+        onclick="confirmarPago(${compra.id})">
         Confirmar pago
       </button>
 
     `;
+
 
     contenedor.appendChild(div);
 
