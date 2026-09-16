@@ -158,7 +158,7 @@ async function cargarCompras(){
     return;
 
   }
-
+console.log("COMPRAS:", data);
   if(!data || data.length === 0){
 
     contenedor.innerHTML =
@@ -167,36 +167,38 @@ async function cargarCompras(){
     return;
 
   }
-  const numeroIds = data.map(compra => compra.numero_id);
+ const numeroIds = data
+  .map(compra => compra.numero_id)
+  .filter(id => id !== null && id !== undefined);
 
-const { data: numerosData, error: numerosError } =
-  await db
-    .from("numeros")
-    .select("id, numero")
-    .in("id", numeroIds);
+let numerosData = [];
 
-if(numerosError){
+if(numeroIds.length > 0){
 
-  console.error(numerosError);
+  const { data: numeros, error: numerosError } =
+    await db
+      .from("numeros")
+      .select("id, numero")
+      .in("id", numeroIds);
 
-  contenedor.innerHTML =
-    "Error al cargar los números.";
+  if(numerosError){
 
-  return;
+    console.error("Error cargando números:", numerosError);
 
+    contenedor.innerHTML =
+      "Error al cargar los números.";
+
+    return;
+  }
+
+  numerosData = numeros || [];
 }
 
 const mapaNumeros = {};
-  numerosData.forEach(numero => {
-
-  mapaNumeros[numero.id] =
-    numero.numero;
-
-});
 
 numerosData.forEach(numero => {
 
-  mapaNumeros[numero.id] =
+  mapaNumeros[String(numero.id)] =
     numero.numero;
 
 });
@@ -220,7 +222,7 @@ numerosData.forEach(numero => {
 <br>
 
 <strong>Número:</strong>
-${mapaNumeros[compra.numero_id] ?? "No encontrado"}
+${mapaNumeros[String(compra.numero_id)] ?? "No encontrado"}
 
 <br><br>
 
