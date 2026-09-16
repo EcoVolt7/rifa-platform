@@ -552,25 +552,8 @@ const numeros = [
   ...(numerosParte2 || [])
 ];
 
-
-      if(numerosError){
-
-        console.error(
-          numerosError
-        );
-
-
-        contenedor.innerHTML =
-          "Error al cargar los números.";
-
-
-        return;
-
-      }
-
-
-      numerosCache =
-        numeros || [];
+numerosCache =
+  numeros || [];      
 
 
 
