@@ -228,12 +228,65 @@ ${compra.numeros?.numero ?? "No encontrado"}
 
       <strong>Fecha:</strong>
       ${new Date(compra.created_at).toLocaleString()}
+      <br><br>
+
+<button onclick="confirmarPago(${compra.id})">
+  Confirmar pago
+</button>
 
     `;
 
     contenedor.appendChild(div);
 
   });
+
+}
+    async function confirmarPago(compraId){
+
+  const confirmar =
+    confirm(
+      "¿Confirmas que el pago de esta compra fue verificado?"
+    );
+
+  if(!confirmar){
+    return;
+  }
+
+  const { data, error } =
+    await db.rpc(
+      "confirmar_compra",
+      {
+        p_compra_id: compraId
+      }
+    );
+
+  if(error){
+
+    console.error(error);
+
+    alert(
+      "No se pudo confirmar el pago."
+    );
+
+    return;
+
+  }
+
+  if(!data.success){
+
+    alert(data.mensaje);
+
+    await cargarCompras();
+
+    return;
+
+  }
+
+  alert(
+    "Pago confirmado correctamente."
+  );
+
+  await cargarCompras();
 
 }
   </script>
