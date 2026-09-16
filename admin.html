@@ -247,14 +247,21 @@ console.log("numerosError:", numerosError);
       <br><br>
 
       <strong>Número:</strong>
-      ${
-        numeroEncontrado?.numero ??
-        "No encontrado"
-      }
+${
+  numeroEncontrado?.numero ??
+  "No encontrado"
+}
 
-      <br><br>
+<br><br>
 
-      <strong>Cliente:</strong>
+<strong>Valor:</strong>
+${
+  Number(compra.valor || 0).toFixed(2)
+} USD
+
+<br><br>
+
+<strong>Cliente:</strong>
       ${compra.nombre_cliente}
 
       <br>
