@@ -775,6 +775,10 @@ input[type="file"]{
     <div class="total">
       Total: $<span id="finalTotal">0.00</span>
     </div>
+    <div
+  id="whatsappComprobante"
+  style="margin-top:20px;">
+</div>
 
     <p style="margin-top:15px;">
       Tu participación será confirmada una vez verificado el pago.
@@ -1542,7 +1546,79 @@ async function finishPayment(method){
 
     await loadSoldNumbers();
 
-    showScreen(4);
+
+/*
+  Mostrar botón de WhatsApp
+  solamente para transferencia
+*/
+
+/*
+  =========================
+  BOTÓN WHATSAPP
+  =========================
+*/
+
+const whatsappComprobante =
+  document.getElementById(
+    "whatsappComprobante"
+  );
+
+
+if(whatsappComprobante){
+
+  whatsappComprobante.innerHTML = "";
+
+
+  if(method === "transfer"){
+
+    const numerosTexto =
+      selectedNumbers
+        .slice()
+        .sort((a,b)=>a-b)
+        .join(", ");
+
+
+    const mensaje =
+      "Hola, realicé una transferencia para la rifa EcoVolt.%0A%0A" +
+      "Números reservados: " +
+      numerosTexto +
+      "%0A" +
+      "Nombre: " +
+      name +
+      "%0A" +
+      "Valor: $" +
+      (selectedNumbers.length * PRICE).toFixed(2) +
+      "%0A%0A" +
+      "Adjunto mi comprobante de transferencia.";
+
+
+    const url =
+      "https://wa.me/593997715958?text=" +
+      mensaje;
+
+
+    whatsappComprobante.innerHTML = `
+
+      <button
+        class="continue"
+        onclick="window.open(
+          '${url}',
+          '_blank'
+        )"
+      >
+        📲 Enviar comprobante por WhatsApp
+      </button>
+
+    `;
+
+  }
+
+}
+
+
+showScreen(4);
+
+showScreen(4);
 
   } catch(error){
 
