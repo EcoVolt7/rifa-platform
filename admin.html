@@ -192,20 +192,17 @@ if(numerosError){
 
 }
 const numeroEncontrado =
-  (numerosData || []).find(
-    numero => Number(numero.id) === Number(compra.numero_id)
+  numerosData.find(
+    numero => String(numero.id) === String(compra.numero_id)
   );
 
-console.log(
-  "Compra:",
-  compra.id,
-  "numero_id:",
-  compra.numero_id,
-  "numero encontrado:",
-  numeroEncontrado
-);
-    const div =
-      document.createElement("div");
+console.log("Compra:", compra.id);
+console.log("numero_id:", compra.numero_id);
+console.log("numerosData:", numerosData);
+console.log("numeroEncontrado:", numeroEncontrado);
+
+const div =
+  document.createElement("div");
 
     div.style.border = "1px solid #ccc";
     div.style.padding = "15px";
