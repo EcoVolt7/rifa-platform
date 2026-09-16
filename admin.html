@@ -174,7 +174,7 @@ const numeroIds = data
 const { data: numerosData, error: numerosError } =
   await db
     .from("numeros")
-    .select("id, numero")
+    .select("*")
     .in("id", numeroIds);
 
 if(numerosError){
