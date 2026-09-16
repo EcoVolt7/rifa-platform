@@ -1531,19 +1531,14 @@ function selectPayment(method){
 ========================= */
 
 async function finishPayment(method){
-
   const name =
     document.getElementById("name").value.trim();
-
   const cedula =
     document.getElementById("cedula").value.trim();
-
   const whatsapp =
     document.getElementById("whatsapp").value.trim();
-
   const email =
     document.getElementById("email").value.trim();
-
   if(
     !name ||
     !cedula ||
@@ -1553,159 +1548,181 @@ async function finishPayment(method){
     alert("Completa todos tus datos.");
     return;
   }
-
   if(selectedNumbers.length === 0){
     alert("No has seleccionado ningún número.");
     return;
   }
-
   try {
-
+    /*
+      Guardamos una copia de los números
+      que el usuario intentó reservar.
+    */
+    const numerosIntentados =
+      selectedNumbers
+        .slice()
+        .sort((a,b) => a-b);
     /*
       Una sola llamada a Supabase.
       Funciona igual para 1, 10, 100 o más números.
     */
-
-    const { data, error } = await db.rpc(
-      "comprar_numeros",
-      {
-        p_rifa_id: 1,
-        p_numeros: selectedNumbers,
-        p_nombre: name,
-        p_telefono: whatsapp,
-        p_correo: email,
-        p_cedula: cedula,
-        p_metodo_pago: method
-      }
-    );
-
+    const { data, error } =
+      await db.rpc(
+        "comprar_numeros",
+        {
+          p_rifa_id: 1,
+          p_numeros: numerosIntentados,
+          p_nombre: name,
+          p_telefono: whatsapp,
+          p_correo: email,
+          p_cedula: cedula,
+          p_metodo_pago: method
+        }
+      );
     if(error){
+      console.error(
+        "Error en comprar_numeros:",
+        error
+      );
       throw new Error(
         "No se pudo procesar la compra."
       );
     }
-
     /*
-      Si alguno de los números ya fue vendido,
-      Supabase cancela toda la operación.
+      ==========================================
+      ALGÚN NÚMERO YA NO ESTÁ DISPONIBLE
+      ==========================================
     */
-
     if(!data.success){
-
       const ocupados =
-        data.ocupados || [];
-
-      alert(
-        "Estos números ya no están disponibles: " +
-        ocupados.join(", ") +
-        ". Por favor selecciona otros números."
-      );
-
+        (data.ocupados || [])
+          .map(Number)
+          .sort((a,b) => a-b);
+      /*
+        Determinar cuáles números siguen disponibles
+        de los que el usuario había seleccionado.
+      */
+      const disponibles =
+        numerosIntentados.filter(
+          numero =>
+            !ocupados.includes(numero)
+        );
+      let mensaje =
+        "🔴 Algunos números ya no están disponibles.\n\n";
+      if(ocupados.length > 0){
+        mensaje +=
+          "No disponibles: " +
+          ocupados.join(", ") +
+          "\n\n";
+      }
+      if(disponibles.length > 0){
+        mensaje +=
+          "🟢 Siguen disponibles: " +
+          disponibles.join(", ") +
+          "\n\n";
+      }
+      mensaje +=
+        "Por favor revisa tu selección y vuelve a intentarlo.";
+      alert(mensaje);
+      /*
+        Actualizar la información de números
+        disponibles/vendidos en la página.
+      */
       await loadSoldNumbers();
-
+      /*
+        Quitar solamente los números que
+        ya no están disponibles.
+      */
+      selectedNumbers =
+        disponibles;
+      updateSelectedNumbers();
       return;
     }
-
     /*
-      Compra realizada correctamente.
+      ==========================================
+      COMPRA REALIZADA CORRECTAMENTE
+      ==========================================
     */
-
     const finalNumbers =
-      document.getElementById("finalNumbers");
-
+      document.getElementById(
+        "finalNumbers"
+      );
     finalNumbers.innerHTML = "";
-
-    selectedNumbers
-      .sort((a,b)=>a-b)
-      .forEach(number => {
-
+    numerosIntentados.forEach(
+      number => {
         const div =
           document.createElement("div");
-
-        div.className = "number";
-
-        div.innerText = "#" + number;
-
-        finalNumbers.appendChild(div);
-
-      });
-
-    document.getElementById("finalTotal").innerText =
+        div.className =
+          "number";
+        div.innerText =
+          "#" + number;
+        finalNumbers.appendChild(
+          div
+        );
+      }
+    );
+    document.getElementById(
+      "finalTotal"
+    ).innerText =
       (
-        selectedNumbers.length * PRICE
+        numerosIntentados.length *
+        PRICE
       ).toFixed(2);
-
     await loadSoldNumbers();
-
-
-/*
-  Mostrar botón de WhatsApp
-  solamente para transferencia
-*/
-
-/*
-  =========================
-  BOTÓN WHATSAPP
-  =========================
-*/
-
-const whatsappComprobante =
-  document.getElementById(
-    "whatsappComprobante"
-  );
-
-
-if(whatsappComprobante){
-
-  whatsappComprobante.innerHTML = "";
-
-
-  if(method === "transfer"){
-
-    const numerosTexto =
-      selectedNumbers
-        .slice()
-        .sort((a,b)=>a-b)
-        .join(", ");
-
-
-    const mensaje =
-  "Hola, realicé una transferencia para la rifa de Ministerios AES. " +
-  "Los números reservados son: " +
-      numerosTexto +
-      "%0A" +
-      "Nombre: " +
-      name +
-      "%0A" +
-      "Valor: $" +
-      (selectedNumbers.length * PRICE).toFixed(2) +
-      "%0A%0A" +
-      "Adjunto mi comprobante de transferencia.";
-
-
-    const url =
-      "https://wa.me/593997715958?text=" +
-      mensaje;
-
-
-    whatsappComprobante.innerHTML = `
-
-      <button
-        class="continue"
-        onclick="window.open(
-          '${url}',
-          '_blank'
-        )"
-      >
-        📲 Enviar comprobante por WhatsApp
-      </button>
-
-    `;
-
+    /*
+      =========================
+      BOTÓN WHATSAPP
+      =========================
+    */
+    const whatsappComprobante =
+      document.getElementById(
+        "whatsappComprobante"
+      );
+    if(whatsappComprobante){
+      whatsappComprobante.innerHTML = "";
+      if(method === "transfer"){
+        const numerosTexto =
+          numerosIntentados
+            .slice()
+            .sort((a,b)=>a-b)
+            .join(", ");
+        const mensaje =
+          "Hola, realicé una transferencia para la rifa de Ministerios AES. " +
+          "Los números reservados son: " +
+          numerosTexto +
+          "%0A" +
+          "Nombre: " +
+          name +
+          "%0A" +
+          "Valor: $" +
+          (
+            numerosIntentados.length *
+            PRICE
+          ).toFixed(2) +
+          "%0A%0A" +
+          "Adjunto mi comprobante de transferencia.";
+        const url =
+          "https://wa.me/593997715958?text=" +
+          mensaje;
+        whatsappComprobante.innerHTML = `
+          <button
+            class="continue"
+            onclick="window.open(
+              '${url}',
+              '_blank'
+            )"
+          >
+            📲 Enviar comprobante por WhatsApp
+          </button>
+        `;
+      }
+    }
+  } catch(error){
+    console.error(error);
+    alert(
+      "Ocurrió un error al procesar la reserva. Intenta nuevamente."
+    );
   }
-
 }
-
 
 showScreen(4);
 
