@@ -1327,7 +1327,7 @@ function goToParticipant(){
    IR AL PAGO
 ========================= */
 
-function goToPayment(){
+async function goToPayment(){
 
   const name =
     document.getElementById(
@@ -1369,10 +1369,105 @@ function goToPayment(){
   }
 
 
-  showScreen(3);
+  if(
+    selectedNumbers.length === 0
+  ){
+
+    alert(
+      "No has seleccionado ningún número."
+    );
+
+    return;
+
+  }
+
+
+  try{
+
+    const { data, error } =
+      await db
+        .from("numeros")
+        .select("numero, estado")
+        .eq("rifa_id", 1)
+        .in(
+          "numero",
+          selectedNumbers
+        );
+
+
+    if(error){
+
+      console.error(error);
+
+      alert(
+        "No se pudo verificar la disponibilidad de los números."
+      );
+
+      return;
+
+    }
+
+
+    const noDisponibles =
+      (data || [])
+        .filter(
+          item =>
+            item.estado !== "disponible"
+        )
+        .map(
+          item =>
+            Number(item.numero)
+        )
+        .sort(
+          (a,b)=>a-b
+        );
+
+
+    if(
+      noDisponibles.length > 0
+    ){
+
+      alert(
+        "🔴 Estos números ya no están disponibles:\n\n" +
+        noDisponibles.join(", ") +
+        "\n\n" +
+        "Por favor selecciona otros números."
+      );
+
+
+      await loadSoldNumbers();
+
+
+      selectedNumbers =
+        selectedNumbers.filter(
+          numero =>
+            !noDisponibles.includes(
+              numero
+            )
+        );
+
+
+      updateSelectedNumbers();
+
+      return;
+
+    }
+
+
+    showScreen(3);
+
+
+  }catch(error){
+
+    console.error(error);
+
+    alert(
+      "Ocurrió un error al verificar los números."
+    );
+
+  }
 
 }
-
 
 /* =========================
    METODO DE PAGO
