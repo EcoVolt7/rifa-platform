@@ -1079,14 +1079,25 @@ numerosCache =
           "pendiente"
 
             ? `
-              <button
-                onclick="confirmarPago(${compra.id})"
-              >
-                ✅ Confirmar pago
-              </button>
-            `
+  <button
+    onclick="confirmarPago(${compra.id})"
+  >
+    ✅ Confirmar pago
+  </button>
 
-            : ""
+  <button
+    onclick="rechazarPago(${compra.id})"
+    style="
+      margin-top:10px;
+      background:#b00020;
+      color:white;
+    "
+  >
+    ❌ Rechazar pago
+  </button>
+`
+
+: ""
         }
 
       `;
@@ -1176,7 +1187,70 @@ numerosCache =
 
     }
 
+async function rechazarPago(compraId){
 
+  const confirmar =
+    confirm(
+      "¿Estás seguro de rechazar este pago?\n\nLos números de esta compra volverán a estar disponibles."
+    );
+
+
+  if(!confirmar){
+
+    return;
+
+  }
+
+
+  const { data, error } =
+    await db.rpc(
+      "rechazar_compra",
+      {
+        p_compra_id:
+          compraId
+      }
+    );
+
+
+  if(error){
+
+    console.error(
+      error
+    );
+
+
+    alert(
+      "No se pudo rechazar el pago."
+    );
+
+
+    return;
+
+  }
+
+
+  if(!data.success){
+
+    alert(
+      data.mensaje
+    );
+
+
+    await cargarTodo();
+
+    return;
+
+  }
+
+
+  alert(
+    "Pago rechazado y números liberados correctamente."
+  );
+
+
+  await cargarTodo();
+
+}
   </script>
 
 
