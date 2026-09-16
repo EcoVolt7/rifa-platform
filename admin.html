@@ -39,13 +39,25 @@
 
   <div id="panel" style="display:none;">
 
-    <h2>Bienvenido al panel</h2>
+  <h2>Panel administrativo EcoVolt</h2>
 
-    <button onclick="logout()">
-      Cerrar sesión
-    </button>
+  <button onclick="cargarCompras()">
+    Actualizar compras
+  </button>
 
+  <button onclick="logout()">
+    Cerrar sesión
+  </button>
+
+  <hr>
+
+  <h3>Compras pendientes</h3>
+
+  <div id="comprasPendientes">
+    Cargando...
   </div>
+
+</div>
 
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -123,7 +135,97 @@
         "block";
 
     }
+async function cargarCompras(){
 
+  const contenedor =
+    document.getElementById("comprasPendientes");
+
+  contenedor.innerHTML = "Cargando compras...";
+
+  const { data, error } = await db
+    .from("compras")
+    .select("*")
+    .eq("estado_pago", "pendiente")
+    .order("created_at", { ascending: false });
+
+  if(error){
+
+    console.error(error);
+
+    contenedor.innerHTML =
+      "Error al cargar las compras.";
+
+    return;
+
+  }
+
+  if(!data || data.length === 0){
+
+    contenedor.innerHTML =
+      "<p>No hay compras pendientes.</p>";
+
+    return;
+
+  }
+
+  contenedor.innerHTML = "";
+
+  data.forEach(compra => {
+
+    const div =
+      document.createElement("div");
+
+    div.style.border = "1px solid #ccc";
+    div.style.padding = "15px";
+    div.style.marginBottom = "10px";
+    div.style.borderRadius = "8px";
+
+    div.innerHTML = `
+
+      <strong>Compra #${compra.id}</strong>
+
+      <br><br>
+
+      <strong>Cliente:</strong>
+      ${compra.nombre_cliente}
+
+      <br>
+
+      <strong>Cédula:</strong>
+      ${compra.cedula_cliente}
+
+      <br>
+
+      <strong>Teléfono:</strong>
+      ${compra.telefono_cliente}
+
+      <br>
+
+      <strong>Correo:</strong>
+      ${compra.correo_cliente}
+
+      <br>
+
+      <strong>Método:</strong>
+      ${compra.metodo_pago}
+
+      <br>
+
+      <strong>Estado:</strong>
+      ${compra.estado_pago}
+
+      <br>
+
+      <strong>Fecha:</strong>
+      ${new Date(compra.created_at).toLocaleString()}
+
+    `;
+
+    contenedor.appendChild(div);
+
+  });
+
+}
   </script>
 
 </body>
