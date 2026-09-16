@@ -937,7 +937,7 @@ function showScreen(number){
    BUSCAR NUMERO
 ========================= */
 
-function searchNumber(){
+async function searchNumber(){
 
   const input =
     document.getElementById(
@@ -974,8 +974,13 @@ function searchNumber(){
 
 
     return;
+
   }
 
+
+  // ==========================================
+  // COMPROBAR SI YA ESTÁ VENDIDO
+  // ==========================================
 
   if(
     soldNumbers.includes(number)
@@ -996,16 +1001,105 @@ function searchNumber(){
 
 
     return;
+
   }
 
+
+  // ==========================================
+  // COMPROBAR DIRECTAMENTE EN SUPABASE
+  // ==========================================
+
+  result.style.display =
+    "block";
+
+
+  result.className =
+    "result available";
+
+
+  result.innerText =
+    "⏳ Comprobando disponibilidad...";
+
+
+  const { data, error } =
+    await db
+      .from("numeros")
+      .select("estado")
+      .eq("rifa_id", 1)
+      .eq("numero", number)
+      .maybeSingle();
+
+
+  if(error){
+
+    console.error(
+      "Error comprobando número:",
+      error
+    );
+
+
+    result.className =
+      "result sold";
+
+
+    result.innerText =
+      "No se pudo comprobar el número. Intenta nuevamente.";
+
+
+    return;
+
+  }
+
+
+  // ==========================================
+  // NÚMERO NO EXISTE
+  // ==========================================
+
+  if(!data){
+
+    result.className =
+      "result sold";
+
+
+    result.innerText =
+      "No se encontró ese número.";
+
+
+    return;
+
+  }
+
+
+  // ==========================================
+  // NÚMERO NO DISPONIBLE
+  // ==========================================
+
+  if(
+    data.estado !== "disponible"
+  ){
+
+    result.className =
+      "result sold";
+
+
+    result.innerText =
+      "🔴 El número " +
+      number +
+      " ya está reservado o no está disponible.";
+
+
+    return;
+
+  }
+
+
+  // ==========================================
+  // NÚMERO DISPONIBLE
+  // ==========================================
 
   if(
     selectedNumbers.includes(number)
   ){
-
-    result.style.display =
-      "block";
-
 
     result.className =
       "result sold";
@@ -1016,11 +1110,8 @@ function searchNumber(){
 
 
     return;
+
   }
-
-
-  result.style.display =
-    "block";
 
 
   result.className =
