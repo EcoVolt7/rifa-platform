@@ -187,6 +187,12 @@ if(numerosError){
 }
 
 const mapaNumeros = {};
+  numerosData.forEach(numero => {
+
+  mapaNumeros[numero.id] =
+    numero.numero;
+
+});
 
 numerosData.forEach(numero => {
 
