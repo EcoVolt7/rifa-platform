@@ -167,36 +167,29 @@ console.log("COMPRAS:", data);
     return;
 
   }
- const numeroIds = data
+const numeroIds = data
   .map(compra => compra.numero_id)
   .filter(id => id !== null && id !== undefined);
 
-let numerosData = [];
+const { data: numerosData, error: numerosError } =
+  await db
+    .from("numeros")
+    .select("id, numero")
+    .in("id", numeroIds);
 
-if(numeroIds.length > 0){
+if(numerosError){
 
-  const { data: numeros, error: numerosError } =
-    await db
-      .from("numeros")
-      .select("id, numero")
-      .in("id", numeroIds);
+  console.error("Error cargando números:", numerosError);
 
-  if(numerosError){
+  contenedor.innerHTML =
+    "Error al cargar los números.";
 
-    console.error("Error cargando números:", numerosError);
-
-    contenedor.innerHTML =
-      "Error al cargar los números.";
-
-    return;
-  }
-
-  numerosData = numeros || [];
+  return;
 }
 
 const mapaNumeros = {};
 
-numerosData.forEach(numero => {
+(numerosData || []).forEach(numero => {
 
   mapaNumeros[String(numero.id)] =
     numero.numero;
