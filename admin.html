@@ -181,11 +181,14 @@ async function cargarCompras(){
 
   console.log("numeroIds:", numeroIds);
 
-  const { data: numerosData, error: numerosError } =
-    await db
-      .from("numeros")
-      .select("id, numero")
-      .in("id", numeroIds);
+const { data: numerosData, error: numerosError } =
+  await db
+    .from("numeros")
+    .select("id, numero");
+
+console.log("numeroIds:", numeroIds);
+console.log("numerosData:", numerosData);
+console.log("numerosError:", numerosError);
 
   console.log("numerosData:", numerosData);
 
