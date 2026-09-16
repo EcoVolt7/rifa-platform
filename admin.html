@@ -1,1 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
 
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+  <title>EcoVolt - Administración</title>
+
+</head>
+
+<body>
+
+  <h1>Panel administrativo EcoVolt</h1>
+
+  <div id="login">
+
+    <input
+      type="email"
+      id="email"
+      placeholder="Correo"
+    >
+
+    <input
+      type="password"
+      id="password"
+      placeholder="Contraseña"
+    >
+
+    <button onclick="login()">
+      Iniciar sesión
+    </button>
+
+  </div>
+
+
+  <div id="panel" style="display:none;">
+
+    <h2>Bienvenido al panel</h2>
+
+    <button onclick="logout()">
+      Cerrar sesión
+    </button>
+
+  </div>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <script>
+
+    const SUPABASE_URL = "https://tveigbcascwgvdtpovif.supabase.co'";
+
+    const SUPABASE_ANON_KEY = "sb_publishable_bikgzeAxvmZ8NzYfJUszRQ_Zy9H2AeS";
+
+
+    const db = supabase.createClient(
+      SUPABASE_URL,
+      SUPABASE_ANON_KEY
+    );
+
+
+    async function login(){
+
+      const email =
+        document.getElementById("email").value.trim();
+
+      const password =
+        document.getElementById("password").value;
+
+
+      if(!email || !password){
+
+        alert("Completa el correo y la contraseña.");
+
+        return;
+
+      }
+
+
+      const { data, error } =
+        await db.auth.signInWithPassword({
+
+          email: email,
+
+          password: password
+
+        });
+
+
+      if(error){
+
+        alert(
+          "No se pudo iniciar sesión: " +
+          error.message
+        );
+
+        return;
+
+      }
+
+
+      document.getElementById("login").style.display =
+        "none";
+
+      document.getElementById("panel").style.display =
+        "block";
+
+    }
+
+
+    async function logout(){
+
+      await db.auth.signOut();
+
+      document.getElementById("panel").style.display =
+        "none";
+
+      document.getElementById("login").style.display =
+        "block";
+
+    }
+
+  </script>
+
+</body>
+
+</html>
