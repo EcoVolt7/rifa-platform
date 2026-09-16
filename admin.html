@@ -143,11 +143,16 @@ async function cargarCompras(){
   contenedor.innerHTML = "Cargando compras...";
 
   const { data, error } = await db
-    .from("compras")
-    .select("*")
-    .eq("estado_pago", "pendiente")
-    .order("created_at", { ascending: false });
-
+  .from("compras")
+  .select(`
+    *,
+    numeros (
+      numero
+    )
+  `)
+  .eq("estado_pago", "pendiente")
+  .order("created_at", { ascending: false });
+  
   if(error){
 
     console.error(error);
@@ -187,7 +192,7 @@ async function cargarCompras(){
 <br>
 
 <strong>Número:</strong>
-${compra.numero_id}
+${compra.numeros?.numero ?? "No encontrado"}
 
 <br><br>
 
