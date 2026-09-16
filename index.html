@@ -1281,6 +1281,12 @@ function selectPayment(method){
     );
 
 
+  /*
+    =========================
+    TRANSFERENCIA
+  =========================
+  */
+
   if(
     method === "transfer"
   ){
@@ -1293,33 +1299,54 @@ function selectPayment(method){
           Datos para transferencia
         </strong>
 
-        Banco de ejemplo<br>
-        
-        Cuenta corriente<br>
+        <br><br>
 
-        Titular: Nombre del titular<br>
+        <strong>Banco:</strong>
+        Banco Pichincha
 
-        Número de cuenta: 0000000000<br>
+        <br>
 
-        Cédula/RUC: 0000000000
+        <strong>Cuenta:</strong>
+        Ahorro transaccional
+
+        <br>
+
+        <strong>Número de cuenta:</strong>
+        2214589144
+
+        <br>
+
+        <strong>Propietario:</strong>
+        León Salazar Tifany Paulette
+
+        <br>
+
+        <strong>CI:</strong>
+        0942248360
+
+        <br>
+
+        <strong>Correo:</strong>
+        tifanycototito@gmail.com
 
         <br><br>
 
         <strong>
-          Sube tu comprobante:
+          Importante:
         </strong>
 
-        <input
-          type="file"
-          accept="image/*,.pdf"
-        >
+        <br>
+
+        Tus números quedarán reservados
+        durante 30 minutos mientras
+        realizas la transferencia.
 
         <br><br>
 
         <button
           onclick="finishPayment('transfer')"
         >
-          Enviar comprobante
+          Reservar y continuar
         </button>
 
       </div>
@@ -1328,6 +1355,12 @@ function selectPayment(method){
 
   }
 
+
+  /*
+    =========================
+    TARJETA
+  =========================
+  */
 
   if(
     method === "card"
@@ -1341,18 +1374,10 @@ function selectPayment(method){
           Pago con tarjeta
         </strong>
 
-        <br>
-
-        El pago con tarjeta estará disponible
-        próximamente.
-
         <br><br>
 
-        <button
-          onclick="finishPayment('card')"
-        >
-          Continuar
-        </button>
+        Esta opción no está disponible
+        actualmente.
 
       </div>
 
@@ -1360,6 +1385,12 @@ function selectPayment(method){
 
   }
 
+
+  /*
+    =========================
+    EFECTIVO
+  =========================
+  */
 
   if(
     method === "cash"
@@ -1373,34 +1404,23 @@ function selectPayment(method){
           Pago en efectivo
         </strong>
 
-        <br>
+        <br><br>
 
-        Para pagar en efectivo,
-        comunícate con nosotros por WhatsApp.
+        Tus números quedarán reservados
+        durante 30 minutos.
 
         <br><br>
 
-        <strong>
-          WhatsApp: 099 771 5958
-        </strong>
-
-        <br><br>
-
-        <button
-          onclick="window.open(
-            'https://wa.me/593997715958',
-            '_blank'
-          )"
-        >
-          Contactar por WhatsApp
-        </button>
+        Después de realizar la reserva,
+        podrás comunicarte con nosotros
+        por WhatsApp.
 
         <br><br>
 
         <button
           onclick="finishPayment('cash')"
         >
-          Continuar
+          Reservar números
         </button>
 
       </div>
@@ -1410,7 +1430,6 @@ function selectPayment(method){
   }
 
 }
-
 
 /* =========================
    FINALIZAR
