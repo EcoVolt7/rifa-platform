@@ -1825,13 +1825,24 @@ async function finishPayment(method){
     }
 
 
-    /*
-      =========================
-      MOSTRAR PANTALLA FINAL
-      =========================
-    */
+   /*
+  =========================
+  MOSTRAR PANTALLA FINAL
+  =========================
+*/
 
-    showScreen(4);
+showScreen(4);
+
+
+/*
+  =========================
+  INICIAR TEMPORIZADOR
+  =========================
+*/
+
+iniciarTemporizadorReserva(
+  data.vence_en
+);
 
 
   } catch(error){
@@ -1854,7 +1865,91 @@ async function finishPayment(method){
 /* =========================
    REINICIAR
 ========================= */
+let reservationTimerInterval = null;
 
+function iniciarTemporizadorReserva(venceEn){
+
+  if(reservationTimerInterval){
+    clearInterval(
+      reservationTimerInterval
+    );
+  }
+
+
+  const timer =
+    document.getElementById(
+      "timer"
+    );
+
+  const container =
+    document.getElementById(
+      "reservationTimer"
+    );
+
+
+  function actualizar(){
+
+    const ahora =
+      new Date().getTime();
+
+    const vencimiento =
+      new Date(
+        venceEn
+      ).getTime();
+
+    const restante =
+      vencimiento - ahora;
+
+
+    if(restante <= 0){
+
+      clearInterval(
+        reservationTimerInterval
+      );
+
+      timer.textContent =
+        "00:00";
+
+      container.innerHTML = `
+        ⛔ Tu reserva ha vencido.
+        <br>
+        Los números volverán a estar disponibles.
+      `;
+
+      return;
+
+    }
+
+
+    const minutos =
+      Math.floor(
+        restante / 60000
+      );
+
+    const segundos =
+      Math.floor(
+        (restante % 60000) / 1000
+      );
+
+
+    timer.textContent =
+      String(minutos).padStart(2,"0")
+      + ":" +
+      String(segundos).padStart(2,"0");
+
+  }
+
+
+  actualizar();
+
+
+  reservationTimerInterval =
+    setInterval(
+      actualizar,
+      1000
+    );
+
+}
 function restart(){
 
   selectedNumbers = [];
