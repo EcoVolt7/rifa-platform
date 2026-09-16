@@ -509,12 +509,48 @@
       // CARGAR NÚMEROS
       // ========================================
 
-      const { data:numeros, error:numerosError } =
-        await db
-          .from("numeros")
-          .select(
-            "id, numero, estado, compra_id"
-          );
+      const { data:numerosParte1, error:errorParte1} =
+  await db
+    .from("numeros")
+    .select("id, numero, estado, compra_id")
+    .range(0, 999);
+
+
+if(errorParte1){
+
+  console.error(errorParte1);
+
+  contenedor.innerHTML =
+    "Error al cargar los números.";
+
+  return;
+
+}
+
+
+const { data:numerosParte2, error:errorParte2} =
+  await db
+    .from("numeros")
+    .select("id, numero, estado, compra_id")
+    .range(1000, 1999);
+
+
+if(errorParte2){
+
+  console.error(errorParte2);
+
+  contenedor.innerHTML =
+    "Error al cargar los números.";
+
+  return;
+
+}
+
+
+const numeros = [
+  ...(numerosParte1 || []),
+  ...(numerosParte2 || [])
+];
 
 
       if(numerosError){
