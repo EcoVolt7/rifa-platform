@@ -1887,7 +1887,7 @@ function iniciarTemporizadorReserva(venceEn){
     );
 
 
-  function actualizar(){
+  async function actualizar(){
 
     const ahora =
       new Date().getTime();
@@ -1903,22 +1903,72 @@ function iniciarTemporizadorReserva(venceEn){
 
     if(restante <= 0){
 
-      clearInterval(
-        reservationTimerInterval
-      );
+  clearInterval(
+    reservationTimerInterval
+  );
 
-      timer.textContent =
-        "00:00";
+  timer.textContent =
+    "00:00";
 
-      container.innerHTML = `
-        ⛔ Tu reserva ha vencido.
-        <br>
-        Los números volverán a estar disponibles.
-      `;
 
-      return;
+  container.innerHTML = `
+    ⛔ Tu reserva ha vencido.
+    <br>
+    Los números volverán a estar disponibles.
+  `;
 
-    }
+
+  /*
+    Limpiar la selección local
+  */
+
+  selectedNumbers = [];
+
+  updateSelectedNumbers();
+
+
+  /*
+    Actualizar números vendidos
+  */
+
+  await loadSoldNumbers();
+
+
+  /*
+    Quitar botón de WhatsApp
+  */
+
+  const whatsappComprobante =
+    document.getElementById(
+      "whatsappComprobante"
+    );
+
+  if(whatsappComprobante){
+
+    whatsappComprobante.innerHTML = "";
+
+  }
+
+
+  /*
+    Limpiar números mostrados
+  */
+
+  const finalNumbers =
+    document.getElementById(
+      "finalNumbers"
+    );
+
+  if(finalNumbers){
+
+    finalNumbers.innerHTML = "";
+
+  }
+
+
+  return;
+
+}
 
 
     const minutos =
