@@ -5,18 +5,141 @@
 
   <meta charset="UTF-8">
 
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
 
   <title>EcoVolt - Administración</title>
 
+  <style>
+
+    body{
+      font-family: Arial, sans-serif;
+      background:#f5f5f5;
+      margin:0;
+      padding:20px;
+    }
+
+    h1,
+    h2,
+    h3{
+      color:#111;
+    }
+
+    input,
+    select,
+    button{
+      font-size:16px;
+      padding:10px;
+      margin:4px 0;
+      box-sizing:border-box;
+    }
+
+    input,
+    select{
+      border:1px solid #ccc;
+      border-radius:6px;
+      width:100%;
+      max-width:500px;
+    }
+
+    button{
+      border:none;
+      border-radius:6px;
+      background:#111;
+      color:white;
+      cursor:pointer;
+      padding:10px 15px;
+    }
+
+    button:hover{
+      opacity:0.85;
+    }
+
+    .estadisticas{
+      display:grid;
+      grid-template-columns:
+        repeat(auto-fit,minmax(150px,1fr));
+      gap:10px;
+      margin:20px 0;
+    }
+
+    .estadistica{
+      background:white;
+      border:1px solid #ddd;
+      border-radius:8px;
+      padding:15px;
+      text-align:center;
+    }
+
+    .estadistica strong{
+      display:block;
+      font-size:24px;
+      margin-top:5px;
+    }
+
+    .buscador{
+      background:white;
+      border:1px solid #ddd;
+      border-radius:8px;
+      padding:15px;
+      margin:20px 0;
+    }
+
+    .compra{
+      background:white;
+      border:1px solid #ccc;
+      padding:15px;
+      margin-bottom:10px;
+      border-radius:8px;
+    }
+
+    .estado-pendiente{
+      color:#d97706;
+      font-weight:bold;
+    }
+
+    .estado-confirmado{
+      color:#15803d;
+      font-weight:bold;
+    }
+
+    .estado-rechazado{
+      color:#dc2626;
+      font-weight:bold;
+    }
+
+    .estado-vencido{
+      color:#6b7280;
+      font-weight:bold;
+    }
+
+    .numeros{
+      line-height:1.8;
+    }
+
+    .separador{
+      margin:20px 0;
+      border:none;
+      border-top:1px solid #ddd;
+    }
+
+  </style>
+
 </head>
+
 
 <body>
 
-  <h1>Panel administrativo EcoVolt</h1>
+
+  <!-- ==========================================
+       LOGIN
+  =========================================== -->
 
   <div id="login">
+
+    <h1>Panel administrativo EcoVolt</h1>
 
     <input
       type="email"
@@ -30,6 +153,8 @@
       placeholder="Contraseña"
     >
 
+    <br>
+
     <button onclick="login()">
       Iniciar sesión
     </button>
@@ -37,56 +162,221 @@
   </div>
 
 
-  <div id="panel" style="display:none;">
 
-  <h2>Panel administrativo EcoVolt</h2>
+  <!-- ==========================================
+       PANEL
+  =========================================== -->
 
-  <button onclick="cargarCompras()">
-    Actualizar compras
-  </button>
+  <div
+    id="panel"
+    style="display:none;"
+  >
 
-  <button onclick="logout()">
-    Cerrar sesión
-  </button>
+    <h2>Panel administrativo EcoVolt</h2>
 
-  <hr>
 
-  <h3>Compras pendientes</h3>
+    <button onclick="cargarTodo()">
+      🔄 Actualizar información
+    </button>
 
-  <div id="comprasPendientes">
-    Cargando...
+    <button onclick="logout()">
+      Cerrar sesión
+    </button>
+
+
+    <!-- ========================================
+         ESTADÍSTICAS
+    ========================================= -->
+
+    <div class="estadisticas">
+
+      <div class="estadistica">
+
+        Números disponibles
+
+        <strong id="totalDisponibles">
+          -
+        </strong>
+
+      </div>
+
+
+      <div class="estadistica">
+
+        Números reservados
+
+        <strong id="totalReservados">
+          -
+        </strong>
+
+      </div>
+
+
+      <div class="estadistica">
+
+        Números vendidos
+
+        <strong id="totalVendidos">
+          -
+        </strong>
+
+      </div>
+
+
+      <div class="estadistica">
+
+        Dinero confirmado
+
+        <strong id="dineroConfirmado">
+          $0.00
+        </strong>
+
+      </div>
+
+
+      <div class="estadistica">
+
+        Dinero pendiente
+
+        <strong id="dineroPendiente">
+          $0.00
+        </strong>
+
+      </div>
+
+    </div>
+
+
+    <hr class="separador">
+
+
+    <!-- ========================================
+         BUSCADOR
+    ========================================= -->
+
+    <div class="buscador">
+
+      <h3>🔎 Buscar compra</h3>
+
+      <input
+        type="text"
+        id="busqueda"
+        placeholder="Compra #, número, nombre, cédula, teléfono o correo"
+        oninput="filtrarCompras()"
+      >
+
+
+      <br>
+
+
+      <select
+        id="filtroEstado"
+        onchange="filtrarCompras()"
+      >
+
+        <option value="todos">
+          Todas las compras
+        </option>
+
+        <option value="pendiente">
+          Pendientes
+        </option>
+
+        <option value="confirmado">
+          Confirmadas
+        </option>
+
+        <option value="rechazado">
+          Rechazadas
+        </option>
+
+        <option value="vencido">
+          Vencidas
+        </option>
+
+      </select>
+
+    </div>
+
+
+    <!-- ========================================
+         RESULTADOS
+    ========================================= -->
+
+    <h3>
+      Compras
+    </h3>
+
+    <div id="comprasPendientes">
+
+      Cargando...
+
+    </div>
+
+
   </div>
 
-</div>
 
+
+  <!-- ==========================================
+       SUPABASE
+  =========================================== -->
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
+
   <script>
 
-    const SUPABASE_URL = "https://tveigbcascwgvdtpovif.supabase.co";
 
-    const SUPABASE_ANON_KEY = "sb_publishable_bikgzeAxvmZ8NzYfJUszRQ_Zy9H2AeS";
+    const SUPABASE_URL =
+      "https://tveigbcascwgvdtpovif.supabase.co";
 
 
-    const db = supabase.createClient(
-      SUPABASE_URL,
-      SUPABASE_ANON_KEY
-    );
+    const SUPABASE_ANON_KEY =
+      "sb_publishable_bikgzeAxvmZ8NzYfJUszRQ_Zy9H2AeS";
 
+
+    const db =
+      supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_ANON_KEY
+      );
+
+
+    // ==========================================
+    // VARIABLES GLOBALES
+    // ==========================================
+
+    let comprasCache = [];
+
+    let numerosCache = [];
+
+
+
+    // ==========================================
+    // LOGIN
+    // ==========================================
 
     async function login(){
 
       const email =
-        document.getElementById("email").value.trim();
+        document
+          .getElementById("email")
+          .value
+          .trim();
+
 
       const password =
-        document.getElementById("password").value;
+        document
+          .getElementById("password")
+          .value;
 
 
       if(!email || !password){
 
-        alert("Completa el correo y la contraseña.");
+        alert(
+          "Completa el correo y la contraseña."
+        );
 
         return;
 
@@ -96,9 +386,9 @@
       const { data, error } =
         await db.auth.signInWithPassword({
 
-          email: email,
+          email:email,
 
-          password: password
+          password:password
 
         });
 
@@ -115,278 +405,761 @@
       }
 
 
-      document.getElementById("login").style.display =
+      document
+        .getElementById("login")
+        .style.display =
         "none";
 
-      document.getElementById("panel").style.display =
+
+      document
+        .getElementById("panel")
+        .style.display =
         "block";
+
+
+      await cargarTodo();
 
     }
 
+
+
+    // ==========================================
+    // CERRAR SESIÓN
+    // ==========================================
 
     async function logout(){
 
       await db.auth.signOut();
 
-      document.getElementById("panel").style.display =
+
+      comprasCache = [];
+
+      numerosCache = [];
+
+
+      document
+        .getElementById("panel")
+        .style.display =
         "none";
 
-      document.getElementById("login").style.display =
+
+      document
+        .getElementById("login")
+        .style.display =
         "block";
 
     }
-async function cargarCompras(){
-
-  const contenedor =
-    document.getElementById("comprasPendientes");
-
-  contenedor.innerHTML =
-    "Cargando compras...";
 
 
-  // ==========================================
-  // CARGAR COMPRAS PENDIENTES
-  // ==========================================
 
-  const { data, error } =
-    await db
-      .from("compras")
-      .select("*")
-      .eq("estado_pago", "pendiente")
-      .order("created_at", { ascending: false });
+    // ==========================================
+    // CARGAR TODO
+    // ==========================================
 
+    async function cargarTodo(){
 
-  if(error){
-
-    console.error(error);
-
-    contenedor.innerHTML =
-      "Error al cargar las compras.";
-
-    return;
-
-  }
+      const contenedor =
+        document.getElementById(
+          "comprasPendientes"
+        );
 
 
-  console.log("COMPRAS:", data);
+      contenedor.innerHTML =
+        "Cargando información...";
 
 
-  if(!data || data.length === 0){
+      // ========================================
+      // CARGAR COMPRAS
+      // ========================================
 
-    contenedor.innerHTML =
-      "<p>No hay compras pendientes.</p>";
-
-    return;
-
-  }
-
-
-  // ==========================================
-  // OBTENER LOS NÚMEROS DE CADA COMPRA
-  // ==========================================
-
-  const compraIds =
-    data.map(compra => compra.id);
+      const { data:compras, error:comprasError } =
+        await db
+          .from("compras")
+          .select("*")
+          .order(
+            "created_at",
+            {
+              ascending:false
+            }
+          );
 
 
-  const { data: numerosData, error: numerosError } =
-    await db
-      .from("numeros")
-      .select("id, numero, compra_id")
-      .in("compra_id", compraIds);
+      if(comprasError){
+
+        console.error(
+          comprasError
+        );
 
 
-  console.log("NUMEROS DE LAS COMPRAS:", numerosData);
+        contenedor.innerHTML =
+          "Error al cargar las compras.";
 
 
-  if(numerosError){
+        return;
 
-    console.error(
-      "Error cargando números:",
-      numerosError
-    );
-
-    contenedor.innerHTML =
-      "Error al cargar los números.";
-
-    return;
-
-  }
+      }
 
 
-  // ==========================================
-  // CREAR UNA TARJETA POR CADA COMPRA
-  // ==========================================
-
-  data.forEach(compra => {
+      comprasCache =
+        compras || [];
 
 
-    // Buscar todos los números pertenecientes
-    // a esta compra
 
-    const numerosCompra =
-      (numerosData || [])
-        .filter(
-          numero =>
-            Number(numero.compra_id) ===
-            Number(compra.id)
+      // ========================================
+      // CARGAR NÚMEROS
+      // ========================================
+
+      const { data:numeros, error:numerosError } =
+        await db
+          .from("numeros")
+          .select(
+            "id, numero, estado, compra_id"
+          );
+
+
+      if(numerosError){
+
+        console.error(
+          numerosError
+        );
+
+
+        contenedor.innerHTML =
+          "Error al cargar los números.";
+
+
+        return;
+
+      }
+
+
+      numerosCache =
+        numeros || [];
+
+
+
+      // ========================================
+      // ESTADÍSTICAS
+      // ========================================
+
+      actualizarEstadisticas();
+
+
+      // ========================================
+      // MOSTRAR COMPRAS
+      // ========================================
+
+      filtrarCompras();
+
+    }
+
+
+
+    // ==========================================
+    // ESTADÍSTICAS
+    // ==========================================
+
+    function actualizarEstadisticas(){
+
+      const disponibles =
+        numerosCache.filter(
+          n =>
+            n.estado ===
+            "disponible"
+        ).length;
+
+
+      const reservados =
+        numerosCache.filter(
+          n =>
+            n.estado ===
+            "reservado"
+        ).length;
+
+
+      const vendidos =
+        numerosCache.filter(
+          n =>
+            n.estado ===
+            "vendido"
+        ).length;
+
+
+      document
+        .getElementById(
+          "totalDisponibles"
         )
-        .map(numero => numero.numero)
-        .sort((a,b) => a - b);
+        .textContent =
+        disponibles;
 
 
-    const div =
-      document.createElement("div");
+      document
+        .getElementById(
+          "totalReservados"
+        )
+        .textContent =
+        reservados;
 
 
-    div.style.border =
-      "1px solid #ccc";
+      document
+        .getElementById(
+          "totalVendidos"
+        )
+        .textContent =
+        vendidos;
 
-    div.style.padding =
-      "15px";
 
-    div.style.marginBottom =
-      "10px";
 
-    div.style.borderRadius =
-      "8px";
+      let confirmado = 0;
+
+      let pendiente = 0;
+
+
+      comprasCache.forEach(
+        compra => {
+
+          const valor =
+            Number(
+              compra.valor || 0
+            );
+
+
+          if(
+            compra.estado_pago ===
+            "confirmado"
+          ){
+
+            confirmado += valor;
+
+          }
+
+
+          if(
+            compra.estado_pago ===
+            "pendiente"
+          ){
+
+            pendiente += valor;
+
+          }
+
+        }
+      );
+
+
+      document
+        .getElementById(
+          "dineroConfirmado"
+        )
+        .textContent =
+        "$" +
+        confirmado.toFixed(2);
+
+
+      document
+        .getElementById(
+          "dineroPendiente"
+        )
+        .textContent =
+        "$" +
+        pendiente.toFixed(2);
+
+    }
+
 
 
     // ==========================================
-    // MOSTRAR TODOS LOS NÚMEROS
+    // FILTRAR COMPRAS
     // ==========================================
 
-    const numerosTexto =
-      numerosCompra.length > 0
-        ? numerosCompra
-            .map(numero => "#" + numero)
-            .join(", ")
-        : "No encontrado";
+    function filtrarCompras(){
+
+      const contenedor =
+        document.getElementById(
+          "comprasPendientes"
+        );
 
 
-    div.innerHTML = `
+      const texto =
+        document
+          .getElementById(
+            "busqueda"
+          )
+          .value
+          .trim()
+          .toLowerCase();
 
-      <strong>Compra #${compra.id}</strong>
 
-      <br><br>
+      const estado =
+        document
+          .getElementById(
+            "filtroEstado"
+          )
+          .value;
 
-      <strong>Números:</strong>
-      ${numerosTexto}
 
-      <br><br>
 
-      <strong>Cantidad:</strong>
-      ${compra.cantidad || numerosCompra.length}
-      números
+      let resultados =
+        comprasCache.filter(
+          compra => {
 
-      <br><br>
 
-      <strong>Valor:</strong>
-      $${Number(compra.valor || 0).toFixed(2)} USD
+            // ==================================
+            // FILTRO DE ESTADO
+            // ==================================
 
-      <br><br>
+            if(
+              estado !== "todos" &&
+              compra.estado_pago !== estado
+            ){
 
-      <strong>Cliente:</strong>
-      ${compra.nombre_cliente || ""}
+              return false;
 
-      <br>
+            }
 
-      <strong>Cédula:</strong>
-      ${compra.cedula_cliente || ""}
 
-      <br>
 
-      <strong>Teléfono:</strong>
-      ${compra.telefono_cliente || ""}
+            // ==================================
+            // NÚMEROS DE ESTA COMPRA
+            // ==================================
 
-      <br>
+            const numerosCompra =
+              numerosCache.filter(
+                numero =>
+                  Number(
+                    numero.compra_id
+                  ) ===
+                  Number(
+                    compra.id
+                  )
+              );
 
-      <strong>Correo:</strong>
-      ${compra.correo_cliente || ""}
 
-      <br>
 
-      <strong>Método:</strong>
-      ${compra.metodo_pago || ""}
+            // ==================================
+            // TEXTO DE BÚSQUEDA
+            // ==================================
 
-      <br>
+            if(!texto){
 
-      <strong>Estado:</strong>
-      ${compra.estado_pago || ""}
+              return true;
 
-      <br>
+            }
 
-      <strong>Fecha:</strong>
-      ${
-        new Date(
-          compra.created_at
-        ).toLocaleString()
+
+            const datosCompra = [
+
+              compra.id,
+
+              compra.nombre_cliente,
+
+              compra.cedula_cliente,
+
+              compra.telefono_cliente,
+
+              compra.correo_cliente,
+
+              compra.metodo_pago,
+
+              compra.estado_pago
+
+            ]
+            .filter(
+              dato =>
+                dato !== null &&
+                dato !== undefined
+            )
+            .map(
+              dato =>
+                String(dato)
+                  .toLowerCase()
+            );
+
+
+            const coincideCompra =
+              datosCompra.some(
+                dato =>
+                  dato.includes(
+                    texto
+                  )
+              );
+
+
+            const coincideNumero =
+              numerosCompra.some(
+                numero =>
+                  String(
+                    numero.numero
+                  ).includes(
+                    texto
+                  )
+              );
+
+
+            return (
+              coincideCompra ||
+              coincideNumero
+            );
+
+          }
+        );
+
+
+
+      // ========================================
+      // SIN RESULTADOS
+      // ========================================
+
+      if(
+        resultados.length === 0
+      ){
+
+        contenedor.innerHTML =
+          "<p>No se encontraron compras.</p>";
+
+        return;
+
       }
 
-      <br><br>
-
-      <button
-        onclick="confirmarPago(${compra.id})">
-        Confirmar pago
-      </button>
-
-    `;
 
 
-    contenedor.appendChild(div);
+      // ========================================
+      // MOSTRAR RESULTADOS
+      // ========================================
 
-  });
+      contenedor.innerHTML = "";
 
-}
-    async function confirmarPago(compraId){
 
-  const confirmar =
-    confirm(
-      "¿Confirmas que el pago de esta compra fue verificado?"
-    );
+      resultados.forEach(
+        compra => {
 
-  if(!confirmar){
-    return;
-  }
+          mostrarCompra(
+            compra,
+            contenedor
+          );
 
-  const { data, error } =
-    await db.rpc(
-      "confirmar_compra",
-      {
-        p_compra_id: compraId
+        }
+      );
+
+    }
+
+
+
+    // ==========================================
+    // MOSTRAR UNA COMPRA
+    // ==========================================
+
+    function mostrarCompra(
+      compra,
+      contenedor
+    ){
+
+
+      const numerosCompra =
+        numerosCache
+          .filter(
+            numero =>
+              Number(
+                numero.compra_id
+              ) ===
+              Number(
+                compra.id
+              )
+          )
+          .map(
+            numero =>
+              numero.numero
+          )
+          .sort(
+            (a,b) =>
+              a - b
+          );
+
+
+
+      const numerosTexto =
+        numerosCompra.length > 0
+
+          ? numerosCompra
+              .map(
+                numero =>
+                  "#" + numero
+              )
+              .join(", ")
+
+          : "No encontrado";
+
+
+
+      let claseEstado =
+        "estado-" +
+        compra.estado_pago;
+
+
+
+      const div =
+        document.createElement(
+          "div"
+        );
+
+
+      div.className =
+        "compra";
+
+
+
+      div.innerHTML = `
+
+        <strong>
+          Compra #${compra.id}
+        </strong>
+
+        <br><br>
+
+
+        <strong>
+          Números:
+        </strong>
+
+        <div class="numeros">
+          ${numerosTexto}
+        </div>
+
+        <br>
+
+
+        <strong>
+          Cantidad:
+        </strong>
+
+        ${
+          compra.cantidad ||
+          numerosCompra.length
+        }
+        números
+
+        <br><br>
+
+
+        <strong>
+          Valor:
+        </strong>
+
+        $${Number(
+          compra.valor || 0
+        ).toFixed(2)} USD
+
+        <br><br>
+
+
+        <strong>
+          Cliente:
+        </strong>
+
+        ${
+          compra.nombre_cliente || ""
+        }
+
+        <br>
+
+
+        <strong>
+          Cédula:
+        </strong>
+
+        ${
+          compra.cedula_cliente || ""
+        }
+
+        <br>
+
+
+        <strong>
+          Teléfono:
+        </strong>
+
+        ${
+          compra.telefono_cliente || ""
+        }
+
+        <br>
+
+
+        <strong>
+          Correo:
+        </strong>
+
+        ${
+          compra.correo_cliente || ""
+        }
+
+        <br>
+
+
+        <strong>
+          Método:
+        </strong>
+
+        ${
+          compra.metodo_pago || ""
+        }
+
+        <br>
+
+
+        <strong>
+          Estado:
+        </strong>
+
+        <span class="${claseEstado}">
+          ${
+            compra.estado_pago || ""
+          }
+        </span>
+
+        <br>
+
+
+        <strong>
+          Fecha:
+        </strong>
+
+        ${
+          new Date(
+            compra.created_at
+          ).toLocaleString()
+        }
+
+        <br>
+
+
+        ${
+          compra.vence_en
+            ? `
+              <strong>
+                Vence:
+              </strong>
+
+              ${
+                new Date(
+                  compra.vence_en
+                ).toLocaleString()
+              }
+
+              <br>
+            `
+            : ""
+        }
+
+
+        <br>
+
+
+        ${
+          compra.estado_pago ===
+          "pendiente"
+
+            ? `
+              <button
+                onclick="confirmarPago(${compra.id})"
+              >
+                ✅ Confirmar pago
+              </button>
+            `
+
+            : ""
+        }
+
+      `;
+
+
+      contenedor.appendChild(
+        div
+      );
+
+    }
+
+
+
+    // ==========================================
+    // CONFIRMAR PAGO
+    // ==========================================
+
+    async function confirmarPago(
+      compraId
+    ){
+
+      const confirmar =
+        confirm(
+          "¿Confirmas que el pago de esta compra fue verificado?"
+        );
+
+
+      if(!confirmar){
+
+        return;
+
       }
-    );
 
-  if(error){
 
-    console.error(error);
 
-    alert(
-      "No se pudo confirmar el pago."
-    );
+      const { data, error } =
+        await db.rpc(
+          "confirmar_compra",
+          {
+            p_compra_id:
+              compraId
+          }
+        );
 
-    return;
 
-  }
 
-  if(!data.success){
+      if(error){
 
-    alert(data.mensaje);
+        console.error(
+          error
+        );
 
-    await cargarCompras();
 
-    return;
+        alert(
+          "No se pudo confirmar el pago."
+        );
 
-  }
 
-  alert(
-    "Pago confirmado correctamente."
-  );
+        return;
 
-  await cargarCompras();
+      }
 
-}
+
+
+      if(!data.success){
+
+        alert(
+          data.mensaje
+        );
+
+
+        await cargarTodo();
+
+
+        return;
+
+      }
+
+
+
+      alert(
+        "Pago confirmado correctamente."
+      );
+
+
+      await cargarTodo();
+
+    }
+
+
   </script>
+
 
 </body>
 
