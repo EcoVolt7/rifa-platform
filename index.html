@@ -25,10 +25,6 @@ body{
   overflow-x:hidden;
 }
 
-/* =========================
-   MARCA DE AGUA A.E.S.
-========================= */
-
 .watermark{
   position:fixed;
   inset:-15%;
@@ -55,10 +51,6 @@ body{
   letter-spacing:-2px;
 }
 
-/* =========================
-   CONTENEDOR
-========================= */
-
 .container{
   position:relative;
   z-index:1;
@@ -69,10 +61,6 @@ body{
   margin:auto;
   padding:20px 16px 35px;
 }
-
-/* =========================
-   LOGO A.E.S.
-========================= */
 
 .logo{
   text-align:center;
@@ -92,10 +80,6 @@ body{
     drop-shadow(0 0 18px rgba(255,100,0,.35));
 }
 
-/* =========================
-   TARJETA
-========================= */
-
 .card{
   background:rgba(255,255,255,.96);
 
@@ -108,10 +92,6 @@ body{
 
   margin-bottom:20px;
 }
-
-/* =========================
-   TITULOS
-========================= */
 
 h1{
   text-align:center;
@@ -134,10 +114,6 @@ h1{
   margin-bottom:25px;
   color:#e65f00;
 }
-
-/* =========================
-   BUSCADOR
-========================= */
 
 .search-title{
   font-weight:bold;
@@ -185,10 +161,6 @@ button:active{
   transform:scale(.97);
 }
 
-/* =========================
-   RESULTADO NUMERO
-========================= */
-
 .result{
   margin-top:15px;
 
@@ -213,10 +185,6 @@ button:active{
   color:#a00000;
 }
 
-/* =========================
-   ALEATORIOS
-========================= */
-
 .random-box{
   margin-top:25px;
 
@@ -237,10 +205,6 @@ button:active{
 
   margin:8px 0 10px;
 }
-
-/* =========================
-   NUMEROS SELECCIONADOS
-========================= */
 
 .selected-title{
   font-weight:bold;
@@ -265,10 +229,6 @@ button:active{
   font-weight:bold;
 }
 
-/* =========================
-   TOTAL
-========================= */
-
 .total{
   margin-top:20px;
 
@@ -279,10 +239,6 @@ button:active{
   text-align:center;
 }
 
-/* =========================
-   BOTON CONTINUAR
-========================= */
-
 .continue{
   width:100%;
 
@@ -292,10 +248,6 @@ button:active{
 
   font-size:18px;
 }
-
-/* =========================
-   FORMULARIO
-========================= */
 
 .form-group{
   margin-bottom:15px;
@@ -320,10 +272,6 @@ button:active{
 
   font-size:16px;
 }
-
-/* =========================
-   METODOS DE PAGO
-========================= */
 
 .payment-option{
   width:100%;
@@ -361,18 +309,10 @@ button:active{
   display:block;
 }
 
-/* =========================
-   ARCHIVO
-========================= */
-
 input[type="file"]{
   margin-top:10px;
   width:100%;
 }
-
-/* =========================
-   GRACIAS
-========================= */
 
 .success{
   text-align:center;
@@ -387,10 +327,6 @@ input[type="file"]{
   font-size:60px;
   margin-bottom:10px;
 }
-
-/* =========================
-   REDES SOCIALES
-========================= */
 
 .social{
   text-align:center;
@@ -432,10 +368,6 @@ input[type="file"]{
   background:#e65f00;
 }
 
-/* =========================
-   PANTALLAS
-========================= */
-
 .screen{
   display:none;
 }
@@ -443,10 +375,6 @@ input[type="file"]{
 .screen.active{
   display:block;
 }
-
-/* =========================
-   CELULARES
-========================= */
 
 @media(max-width:480px){
 
@@ -482,10 +410,6 @@ input[type="file"]{
 
 <body>
 
-<!-- =========================
-     MARCA DE AGUA
-========================= -->
-
 <div class="watermark">
 
   <span>A.E.S.</span>
@@ -517,13 +441,13 @@ input[type="file"]{
 
 <div class="container">
 
-<!-- =========================
-     LOGO
-========================= -->
-
 <div class="logo">
 
-<img src="https://raw.githubusercontent.com/EcoVolt7/rifa-platform/main/logo-aes.jpg" alt="A.E.S." class="logo-aes">
+<img
+  src="https://raw.githubusercontent.com/EcoVolt7/rifa-platform/main/logo-aes.jpg"
+  alt="A.E.S."
+  class="logo-aes"
+>
 
 </div>
 
@@ -546,8 +470,6 @@ input[type="file"]{
       $3.00 por número
     </div>
 
-
-    <!-- BUSCADOR -->
 
     <div class="search-title">
       Busca tu número
@@ -572,8 +494,6 @@ input[type="file"]{
     <div id="searchResult" class="result"></div>
 
 
-    <!-- NUMEROS ALEATORIOS -->
-
     <div class="random-box">
 
       <div class="search-title">
@@ -594,8 +514,6 @@ input[type="file"]{
 
     </div>
 
-
-    <!-- SELECCIONADOS -->
 
     <div class="selected-title">
       Números seleccionados:
@@ -775,10 +693,11 @@ input[type="file"]{
     <div class="total">
       Total: $<span id="finalTotal">0.00</span>
     </div>
+
     <div
-  id="whatsappComprobante"
-  style="margin-top:20px;">
-</div>
+      id="whatsappComprobante"
+      style="margin-top:20px;">
+    </div>
 
     <p style="margin-top:15px;">
       Tu participación será confirmada una vez verificado el pago.
@@ -800,19 +719,29 @@ input[type="file"]{
 ========================= -->
 
 <div class="social">
-  <div class="social-title">Síguenos en nuestras redes</div>
 
-  <a href="https://www.instagram.com/ministerioaes_ec?stkn=MXVvZGx3a2ozcXhyOA==" target="_blank">
+  <div class="social-title">
+    Síguenos en nuestras redes
+  </div>
+
+  <a
+    href="https://www.instagram.com/ministerioaes_ec?stkn=MXVvZGx3a2ozcXhyOA=="
+    target="_blank">
     Instagram
   </a>
 
-  <a href="https://www.facebook.com/share/19g4atoH3s/?mibextid=wwXIfr" target="_blank">
+  <a
+    href="https://www.facebook.com/share/19g4atoH3s/?mibextid=wwXIfr"
+    target="_blank">
     Facebook
   </a>
 
-  <a href="https://wa.me/593993201778" target="_blank">
+  <a
+    href="https://wa.me/593993201778"
+    target="_blank">
     WhatsApp
   </a>
+
 </div>
 
 
@@ -863,11 +792,12 @@ let soldNumbers = [];
 
 async function loadSoldNumbers(){
 
-  const { data, error } = await db
-    .from('numeros')
-    .select('numero')
-    .eq('rifa_id', 1)
-    .eq('estado', 'vendido');
+  const { data, error } =
+    await db
+      .from('numeros')
+      .select('numero')
+      .eq('rifa_id', 1)
+      .eq('estado', 'vendido');
 
 
   if(error){
@@ -978,9 +908,11 @@ async function searchNumber(){
   }
 
 
-  // ==========================================
-  // COMPROBAR SI YA ESTÁ VENDIDO
-  // ==========================================
+  /*
+    =========================
+    COMPROBAR SI YA ESTA VENDIDO
+    =========================
+  */
 
   if(
     soldNumbers.includes(number)
@@ -1005,9 +937,11 @@ async function searchNumber(){
   }
 
 
-  // ==========================================
-  // COMPROBAR DIRECTAMENTE EN SUPABASE
-  // ==========================================
+  /*
+    =========================
+    COMPROBAR EN SUPABASE
+    =========================
+  */
 
   result.style.display =
     "block";
@@ -1051,10 +985,6 @@ async function searchNumber(){
   }
 
 
-  // ==========================================
-  // NÚMERO NO EXISTE
-  // ==========================================
-
   if(!data){
 
     result.className =
@@ -1070,9 +1000,11 @@ async function searchNumber(){
   }
 
 
-  // ==========================================
-  // NÚMERO NO DISPONIBLE
-  // ==========================================
+  /*
+    =========================
+    RESERVADO O NO DISPONIBLE
+    =========================
+  */
 
   if(
     data.estado !== "disponible"
@@ -1093,9 +1025,11 @@ async function searchNumber(){
   }
 
 
-  // ==========================================
-  // NÚMERO DISPONIBLE
-  // ==========================================
+  /*
+    =========================
+    YA SELECCIONADO
+    =========================
+  */
 
   if(
     selectedNumbers.includes(number)
@@ -1113,6 +1047,12 @@ async function searchNumber(){
 
   }
 
+
+  /*
+    =========================
+    DISPONIBLE
+    =========================
+  */
 
   result.className =
     "result available";
@@ -1189,6 +1129,7 @@ function randomNumbers(){
     );
 
     return;
+
   }
 
 
@@ -1199,6 +1140,7 @@ function randomNumbers(){
     );
 
     return;
+
   }
 
 
@@ -1306,6 +1248,7 @@ function goToParticipant(){
     );
 
     return;
+
   }
 
 
@@ -1356,6 +1299,7 @@ function goToPayment(){
     );
 
     return;
+
   }
 
 
@@ -1375,12 +1319,6 @@ function selectPayment(method){
       "paymentInfo"
     );
 
-
-  /*
-    =========================
-    TRANSFERENCIA
-  =========================
-  */
 
   if(
     method === "transfer"
@@ -1451,12 +1389,6 @@ function selectPayment(method){
   }
 
 
-  /*
-    =========================
-    TARJETA
-  =========================
-  */
-
   if(
     method === "card"
   ){
@@ -1480,12 +1412,6 @@ function selectPayment(method){
 
   }
 
-
-  /*
-    =========================
-    EFECTIVO
-  =========================
-  */
 
   if(
     method === "cash"
@@ -1526,45 +1452,83 @@ function selectPayment(method){
 
 }
 
+
 /* =========================
-   FINALIZAR
+   FINALIZAR COMPRA
 ========================= */
 
 async function finishPayment(method){
+
   const name =
-    document.getElementById("name").value.trim();
+    document.getElementById(
+      "name"
+    ).value.trim();
+
+
   const cedula =
-    document.getElementById("cedula").value.trim();
+    document.getElementById(
+      "cedula"
+    ).value.trim();
+
+
   const whatsapp =
-    document.getElementById("whatsapp").value.trim();
+    document.getElementById(
+      "whatsapp"
+    ).value.trim();
+
+
   const email =
-    document.getElementById("email").value.trim();
+    document.getElementById(
+      "email"
+    ).value.trim();
+
+
   if(
     !name ||
     !cedula ||
     !whatsapp ||
     !email
   ){
-    alert("Completa todos tus datos.");
+
+    alert(
+      "Completa todos tus datos."
+    );
+
     return;
+
   }
-  if(selectedNumbers.length === 0){
-    alert("No has seleccionado ningún número.");
+
+
+  if(
+    selectedNumbers.length === 0
+  ){
+
+    alert(
+      "No has seleccionado ningún número."
+    );
+
     return;
+
   }
+
+
   try {
+
     /*
-      Guardamos una copia de los números
+      Guardar copia de los números
       que el usuario intentó reservar.
     */
+
     const numerosIntentados =
       selectedNumbers
         .slice()
-        .sort((a,b) => a-b);
+        .sort((a,b)=>a-b);
+
+
     /*
-      Una sola llamada a Supabase.
-      Funciona igual para 1, 10, 100 o más números.
+      UNA SOLA LLAMADA A SUPABASE
     */
+
     const { data, error } =
       await db.rpc(
         "comprar_numeros",
@@ -1578,88 +1542,144 @@ async function finishPayment(method){
           p_metodo_pago: method
         }
       );
+
+
     if(error){
+
       console.error(
         "Error en comprar_numeros:",
         error
       );
+
       throw new Error(
         "No se pudo procesar la compra."
       );
+
     }
+
+
     /*
-      ==========================================
-      ALGÚN NÚMERO YA NO ESTÁ DISPONIBLE
-      ==========================================
+      =========================
+      ALGUN NUMERO YA NO ESTA DISPONIBLE
+      =========================
     */
+
     if(!data.success){
+
       const ocupados =
         (data.ocupados || [])
           .map(Number)
-          .sort((a,b) => a-b);
+          .sort((a,b)=>a-b);
+
+
       /*
-        Determinar cuáles números siguen disponibles
-        de los que el usuario había seleccionado.
+        Como la operación es atómica,
+        ninguno de los números fue reservado.
+        Por eso los demás siguen disponibles.
       */
+
       const disponibles =
         numerosIntentados.filter(
           numero =>
             !ocupados.includes(numero)
         );
+
+
       let mensaje =
         "🔴 Algunos números ya no están disponibles.\n\n";
+
+
       if(ocupados.length > 0){
+
         mensaje +=
           "No disponibles: " +
           ocupados.join(", ") +
           "\n\n";
+
       }
+
+
       if(disponibles.length > 0){
+
         mensaje +=
           "🟢 Siguen disponibles: " +
           disponibles.join(", ") +
           "\n\n";
+
       }
+
+
       mensaje +=
         "Por favor revisa tu selección y vuelve a intentarlo.";
+
+
       alert(mensaje);
+
+
       /*
-        Actualizar la información de números
-        disponibles/vendidos en la página.
+        Actualizar números vendidos.
       */
+
       await loadSoldNumbers();
+
+
       /*
-        Quitar solamente los números que
-        ya no están disponibles.
+        Quitar de la selección únicamente
+        los que ya no están disponibles.
       */
+
       selectedNumbers =
         disponibles;
+
+
       updateSelectedNumbers();
+
+
       return;
+
     }
+
+
     /*
-      ==========================================
-      COMPRA REALIZADA CORRECTAMENTE
-      ==========================================
+      =========================
+      COMPRA CORRECTA
+      =========================
     */
+
     const finalNumbers =
       document.getElementById(
         "finalNumbers"
       );
+
+
     finalNumbers.innerHTML = "";
+
+
     numerosIntentados.forEach(
       number => {
+
         const div =
-          document.createElement("div");
+          document.createElement(
+            "div"
+          );
+
+
         div.className =
           "number";
+
+
         div.innerText =
           "#" + number;
+
+
         finalNumbers.appendChild(
           div
         );
+
       }
     );
+
+
     document.getElementById(
       "finalTotal"
     ).innerText =
@@ -1667,24 +1687,37 @@ async function finishPayment(method){
         numerosIntentados.length *
         PRICE
       ).toFixed(2);
+
+
     await loadSoldNumbers();
+
+
     /*
       =========================
-      BOTÓN WHATSAPP
+      WHATSAPP
       =========================
     */
+
     const whatsappComprobante =
       document.getElementById(
         "whatsappComprobante"
       );
+
+
     if(whatsappComprobante){
+
       whatsappComprobante.innerHTML = "";
+
+
       if(method === "transfer"){
+
         const numerosTexto =
           numerosIntentados
             .slice()
             .sort((a,b)=>a-b)
             .join(", ");
+
+
         const mensaje =
           "Hola, realicé una transferencia para la rifa de Ministerios AES. " +
           "Los números reservados son: " +
@@ -1700,10 +1733,15 @@ async function finishPayment(method){
           ).toFixed(2) +
           "%0A%0A" +
           "Adjunto mi comprobante de transferencia.";
+
+
         const url =
           "https://wa.me/593997715958?text=" +
           mensaje;
+
+
         whatsappComprobante.innerHTML = `
+
           <button
             class="continue"
             onclick="window.open(
@@ -1713,32 +1751,39 @@ async function finishPayment(method){
           >
             📲 Enviar comprobante por WhatsApp
           </button>
+
         `;
+
       }
+
     }
+
+
+    /*
+      =========================
+      MOSTRAR PANTALLA FINAL
+      =========================
+    */
+
+    showScreen(4);
+
+
   } catch(error){
+
     console.error(error);
+
     alert(
-      "Ocurrió un error al procesar la reserva. Intenta nuevamente."
+      error.message ||
+      "Ocurrió un error al procesar la reserva."
     );
-  }
-}
 
-showScreen(4);
-
-showScreen(4);
-
-  } catch(error){
-
-    console.error(error);
-
-    alert(error.message);
 
     await loadSoldNumbers();
 
   }
 
 }
+
 
 /* =========================
    REINICIAR
@@ -1775,6 +1820,21 @@ function restart(){
   document.getElementById(
     "randomQuantity"
   ).value = "";
+
+
+  document.getElementById(
+    "searchInput"
+  ).value = "";
+
+
+  document.getElementById(
+    "searchResult"
+  ).style.display = "none";
+
+
+  document.getElementById(
+    "paymentInfo"
+  ).innerHTML = "";
 
 
   showScreen(1);
