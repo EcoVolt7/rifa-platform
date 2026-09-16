@@ -167,6 +167,33 @@ async function cargarCompras(){
     return;
 
   }
+  const numeroIds = data.map(compra => compra.numero_id);
+
+const { data: numerosData, error: numerosError } =
+  await db
+    .from("numeros")
+    .select("id, numero")
+    .in("id", numeroIds);
+
+if(numerosError){
+
+  console.error(numerosError);
+
+  contenedor.innerHTML =
+    "Error al cargar los números.";
+
+  return;
+
+}
+
+const mapaNumeros = {};
+
+numerosData.forEach(numero => {
+
+  mapaNumeros[numero.id] =
+    numero.numero;
+
+});
 
   contenedor.innerHTML = "";
 
@@ -187,8 +214,7 @@ async function cargarCompras(){
 <br>
 
 <strong>Número:</strong>
-${compra.numero_id}
-
+${mapaNumeros[compra.numero_id] ?? "No encontrado"}
 <br><br>
 
 <strong>Cliente:</strong>
