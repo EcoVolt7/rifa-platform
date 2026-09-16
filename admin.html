@@ -184,7 +184,8 @@ async function cargarCompras(){
 const { data: numerosData, error: numerosError } =
   await db
     .from("numeros")
-    .select("id, numero");
+    .select("id, numero")
+    .in("id", numeroIds);
 
 console.log("numeroIds:", numeroIds);
 console.log("numerosData:", numerosData);
