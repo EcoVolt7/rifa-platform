@@ -679,21 +679,7 @@ input[type="file"]{
       </div>
 
     </div>
-<div
-  id="reservationTimer"
-  style="
-    margin-top:20px;
-    padding:15px;
-    border-radius:12px;
-    background:#fff3cd;
-    color:#856404;
-    font-weight:bold;
-    text-align:center;
-    font-size:18px;
-  "
->
-  ⏳ Reserva activa: <span id="timer">30:00</span>
-</div>
+
     <p style="font-weight:bold; margin-top:25px;">
       Estos son tus números:
     </p>
@@ -1532,8 +1518,7 @@ function selectPayment(method){
         <br>
 
         Tus números quedarán reservados
-        durante 30 minutos mientras
-        realizas la transferencia.
+hasta que se confirme la transferencia.
 
         <br><br>
 
@@ -1589,7 +1574,7 @@ function selectPayment(method){
         <br><br>
 
         Tus números quedarán reservados
-        durante 30 minutos.
+        hasta que se confirme el pago.
 
         <br><br>
 
@@ -1935,9 +1920,6 @@ showScreen(4);
   =========================
 */
 
-iniciarTemporizadorReserva(
-  data.vence_en
-);
 
 
   } catch(error){
@@ -1960,141 +1942,7 @@ iniciarTemporizadorReserva(
 /* =========================
    REINICIAR
 ========================= */
-let reservationTimerInterval = null;
 
-function iniciarTemporizadorReserva(venceEn){
-
-  if(reservationTimerInterval){
-    clearInterval(
-      reservationTimerInterval
-    );
-  }
-
-
-  const timer =
-    document.getElementById(
-      "timer"
-    );
-
-  const container =
-    document.getElementById(
-      "reservationTimer"
-    );
-
-
-  async function actualizar(){
-
-    const ahora =
-      new Date().getTime();
-
-    const vencimiento =
-      new Date(
-        venceEn
-      ).getTime();
-
-    const restante =
-      vencimiento - ahora;
-
-
-    if(restante <= 0){
-
-  clearInterval(
-    reservationTimerInterval
-  );
-
-  timer.textContent =
-    "00:00";
-
-
-  container.innerHTML = `
-    ⛔ Tu reserva ha vencido.
-    <br>
-    Los números volverán a estar disponibles.
-  `;
-
-
-  /*
-    Limpiar la selección local
-  */
-
-  selectedNumbers = [];
-
-  updateSelectedNumbers();
-
-
-  /*
-    Actualizar números vendidos
-  */
-
-  await loadSoldNumbers();
-
-
-  /*
-    Quitar botón de WhatsApp
-  */
-
-  const whatsappComprobante =
-    document.getElementById(
-      "whatsappComprobante"
-    );
-
-  if(whatsappComprobante){
-
-    whatsappComprobante.innerHTML = "";
-
-  }
-
-
-  /*
-    Limpiar números mostrados
-  */
-
-  const finalNumbers =
-    document.getElementById(
-      "finalNumbers"
-    );
-
-  if(finalNumbers){
-
-    finalNumbers.innerHTML = "";
-
-  }
-
-
-  return;
-
-}
-
-
-    const minutos =
-      Math.floor(
-        restante / 60000
-      );
-
-    const segundos =
-      Math.floor(
-        (restante % 60000) / 1000
-      );
-
-
-    timer.textContent =
-      String(minutos).padStart(2,"0")
-      + ":" +
-      String(segundos).padStart(2,"0");
-
-  }
-
-
-  actualizar();
-
-
-  reservationTimerInterval =
-    setInterval(
-      actualizar,
-      1000
-    );
-
-}
 function restart(){
 
   selectedNumbers = [];
